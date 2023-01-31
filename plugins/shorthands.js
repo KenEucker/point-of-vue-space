@@ -259,7 +259,7 @@ export const formatProjectStatus = (name) => {
 }
 
 export const formatVersions = (versionArray, store) => {
-  const allVersions = store.state.tag.gameVersions.slice().reverse()
+  const allVersions = store.state.tag.platformVersions.slice().reverse()
   const allReleases = allVersions.filter((x) => x.version_type === 'release')
 
   const intervals = []

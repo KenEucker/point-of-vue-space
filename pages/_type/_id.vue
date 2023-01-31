@@ -981,8 +981,10 @@ export default {
     this.featuredVersions.sort((a, b) => {
       const aLatest = a.game_versions[a.game_versions.length - 1]
       const bLatest = b.game_versions[b.game_versions.length - 1]
-      const gameVersions = this.$tag.gameVersions.map((e) => e.version)
-      return gameVersions.indexOf(aLatest) - gameVersions.indexOf(bLatest)
+      const platformVersions = this.$tag.platformVersions.map((e) => e.version)
+      return (
+        platformVersions.indexOf(aLatest) - platformVersions.indexOf(bLatest)
+      )
     })
   },
   head() {

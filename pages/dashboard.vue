@@ -4,21 +4,16 @@
       <aside class="universal-card">
         <h1>Dashboard<span class="beta-badge">BETA</span></h1>
         <NavStack>
-          <NavStackItem link="/dashboard" label="Overview">
-            <DashboardIcon />
-          </NavStackItem>
-          <NavStackItem link="/dashboard/projects" label="Projects">
-            <ListIcon />
-          </NavStackItem>
-          <!--          <NavStackItem link="/dashboard/analytics" label="Analytics">-->
-          <!--            <ChartIcon />-->
-          <!--          </NavStackItem>-->
           <NavStackItem
-            v-if="hasMonetization()"
-            link="/dashboard/revenue"
-            label="Revenue"
+            v-for="link in navLinks"
+            :key="link.path"
+            :link="`/${link.path}`"
+            :label="link.label"
           >
-            <CurrencyIcon />
+            <DashboardIcon v-if="link.icon === 'dashboard'" />
+            <ListIcon v-if="link.icon === 'list'" />
+            <ChartIcon v-if="link.icon === 'chart'" />
+            <CurrencyIcon v-if="link.icon === 'currency'" />
           </NavStackItem>
         </NavStack>
       </aside>
@@ -34,11 +29,21 @@ import NavStack from '~/components/ui/NavStack'
 import NavStackItem from '~/components/ui/NavStackItem'
 
 import DashboardIcon from '~/assets/images/utils/dashboard.svg?inline'
-// import ChartIcon from '~/assets/images/utils/chart.svg?inline'
+import ChartIcon from '~/assets/images/utils/chart.svg?inline'
 import CurrencyIcon from '~/assets/images/utils/currency.svg?inline'
 import ListIcon from '~/assets/images/utils/list.svg?inline'
 
-const monetization = true
+import iDb from '~/iDb'
+
+const computeCondition = (condition) => {
+  switch (condition) {
+    case 'analytics':
+      return false
+    case 'monetization':
+    default:
+      return true
+  }
+}
 
 export default {
   name: 'Dashboard',
@@ -46,15 +51,23 @@ export default {
     NavStack,
     NavStackItem,
     DashboardIcon,
-    // ChartIcon,
+    ChartIcon,
     CurrencyIcon,
     ListIcon,
   },
-  methods: {
-    hasMonetization() {
-      return monetization
+  data() {
+    return {
+      iDb,
+    }
+  },
+  computed: {
+    navLinks: () => {
+      return iDb.pages.dashboard.navLinks.filter((l) =>
+        l.condition?.length ? computeCondition(l.condition) : true
+      )
     },
   },
+  methods: {},
 }
 </script>
 

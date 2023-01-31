@@ -1,7 +1,7 @@
 <template>
   <div class="card">
-    <h1>Frog</h1>
-    <p>You've been frogged! 🐸</p>
+    <h1>Toad</h1>
+    <p>You've been toad! 🐸</p>
     <img
       src="https://cdn.modrinth.com/frog.png"
       alt="a photorealistic painting of a frog labyrinth"
