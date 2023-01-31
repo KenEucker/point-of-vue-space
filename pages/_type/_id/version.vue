@@ -697,12 +697,12 @@
               v-model="version.game_versions"
               :options="
                 showSnapshots
-                  ? $tag.gameVersions.map((x) => x.version)
-                  : $tag.gameVersions
+                  ? $tag.platformVersions.map((x) => x.version)
+                  : $tag.platformVersions
                       .filter((it) => it.version_type === 'release')
                       .map((x) => x.version)
               "
-              :loading="$tag.gameVersions.length === 0"
+              :loading="$tag.platformVersions.length === 0"
               :multiple="true"
               :searchable="true"
               :show-no-results="false"
@@ -1050,7 +1050,7 @@ export default {
             const inferredData = await inferVersionInfo(
               this.replaceFile,
               this.project,
-              this.$tag.gameVersions
+              this.$tag.platformVersions
             )
 
             if (
@@ -1549,7 +1549,7 @@ export default {
           this.version,
           this.primaryFile,
           this.members,
-          this.$tag.gameVersions,
+          this.$tag.platformVersions,
           this.packageLoaders
         )
 

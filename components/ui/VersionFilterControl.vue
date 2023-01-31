@@ -21,7 +21,7 @@
     ></Multiselect>
     <Multiselect
       v-if="getValidVersions().length > 1"
-      v-model="selectedGameVersions"
+      v-model="selectedPlatformVersions"
       :options="
         showSnapshots
           ? getValidVersions().map((x) => x.version)
@@ -35,7 +35,7 @@
       :close-on-select="false"
       :show-labels="false"
       :hide-selected="true"
-      :selectable="() => selectedGameVersions.length <= 6"
+      :selectable="() => selectedPlatformVersions.length <= 6"
       placeholder="Filter versions..."
       @input="updateVersionFilters()"
     ></Multiselect>
@@ -68,12 +68,12 @@
     <button
       title="Clear filters"
       :disabled="
-        selectedLoaders.length === 0 && selectedGameVersions.length === 0
+        selectedLoaders.length === 0 && selectedPlatformVersions.length === 0
       "
       class="iconified-button"
       @click="
         selectedLoaders = []
-        selectedGameVersions = []
+        selectedPlatformVersions = []
         updateVersionFilters()
       "
     >
@@ -107,14 +107,14 @@ export default {
       cachedValidChannels: null,
       cachedValidVersions: null,
       cachedValidLoaders: null,
-      selectedGameVersions: [],
+      selectedPlatformVersions: [],
       selectedLoaders: [],
       selectedChannels: [],
     }
   },
   fetch() {
     this.selectedLoaders = this.$route.query.l?.split(',') || []
-    this.selectedGameVersions = this.$route.query.g?.split(',') || []
+    this.selectedPlatformVersions = this.$route.query.g?.split(',') || []
     this.selectedChannels = this.$route.query.c?.split(',') || []
     this.showSnapshots = this.$route.query.s === 'true'
     this.updateVersionFilters()
@@ -131,7 +131,7 @@ export default {
     },
     getValidVersions() {
       if (!this.cachedValidVersions) {
-        this.cachedValidVersions = this.$tag.gameVersions.filter((gameVer) =>
+        this.cachedValidVersions = this.$tag.platformVersions.filter((gameVer) =>
           this.versions.some((projVer) =>
             projVer.game_versions.includes(gameVer.version)
           )
@@ -159,7 +159,7 @@ export default {
       this.selectedLoaders = this.selectedLoaders.filter((loader) =>
         this.getValidLoaders().includes(loader)
       )
-      this.selectedGameVersions = this.selectedGameVersions.filter((version) =>
+      this.selectedPlatformVersions = this.selectedPlatformVersions.filter((version) =>
         this.getValidVersions().some(
           (validVersion) => validVersion.version === version
         )
@@ -167,9 +167,9 @@ export default {
 
       const temp = this.versions.filter(
         (projectVersion) =>
-          (this.selectedGameVersions.length === 0 ||
-            this.selectedGameVersions.some((gameVersion) =>
-              projectVersion.game_versions.includes(gameVersion)
+          (this.selectedPlatformVersions.length === 0 ||
+            this.selectedPlatformVersions.some((platformVersion) =>
+              projectVersion.game_versions.includes(platformVersion)
             )) &&
           (this.selectedLoaders.length === 0 ||
             this.selectedLoaders.some((loader) =>
@@ -190,9 +190,9 @@ export default {
               ? undefined
               : this.selectedLoaders.join(','),
           g:
-            this.selectedGameVersions.length === 0
+            this.selectedPlatformVersions.length === 0
               ? undefined
-              : this.selectedGameVersions.join(','),
+              : this.selectedPlatformVersions.join(','),
           c:
             this.selectedChannels.length === 0
               ? undefined

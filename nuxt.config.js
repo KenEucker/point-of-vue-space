@@ -2,8 +2,7 @@ import { promises as fs } from 'fs'
 import { sortRoutes } from '@nuxt/utils'
 import axios from 'axios'
 import iDb from './iDb'
-
-const { getApiUrl, getDomain } = iDb.nuxt
+import { getApiUrl, getDomain } from './iDb/functions'
 
 export default {
   /*
@@ -185,7 +184,7 @@ export default {
           // Skip regeneration if within TTL...
           state.lastGenerated &&
           new Date(state.lastGenerated).getTime() + TTL >
-          new Date().getTime() &&
+            new Date().getTime() &&
           // ...but only if the API URL is the same
           state.apiUrl &&
           state.apiUrl === API_URL
@@ -238,14 +237,14 @@ export default {
                   ...iDb.nuxt.render.headers,
                   'User-Agent':
                     context.req.rawHeaders[
-                    context.req.rawHeaders.findIndex(
-                      (x) => x === 'User-Agent'
-                    ) + 1
+                      context.req.rawHeaders.findIndex(
+                        (x) => x === 'User-Agent'
+                      ) + 1
                     ],
                 },
               }
             )
-            .then(() => { })
+            .then(() => {})
             .catch((e) => {
               console.error(
                 'An error occurred while registering the visit: ',

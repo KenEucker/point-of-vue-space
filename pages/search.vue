@@ -179,8 +179,8 @@
             v-model="selectedVersions"
             :options="
               showSnapshots
-                ? $tag.gameVersions.map((x) => x.version)
-                : $tag.gameVersions
+                ? $tag.platformVersions.map((x) => x.version)
+                : $tag.platformVersions
                     .filter((it) => it.version_type === 'release')
                     .map((x) => x.version)
             "

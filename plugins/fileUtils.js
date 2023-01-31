@@ -50,7 +50,7 @@ export const acceptFileFromProjectType = (projectType) => {
 export const inferVersionInfo = async function (
   rawFile,
   project,
-  gameVersions
+  platformVersions
 ) {
   function versionType(number) {
     if (number.includes('alpha')) {
@@ -67,13 +67,13 @@ export const inferVersionInfo = async function (
   }
 
   // TODO: This func does not handle accurate semver parsing. We should eventually
-  function gameVersionRange(gameVersionString, gameVersions) {
-    if (!gameVersionString) {
+  function platformVersionRange(platformVersionString, platformVersions) {
+    if (!platformVersionString) {
       return []
     }
 
     // Truncate characters after `-` & `+`
-    const gameString = gameVersionString.replace(/-|\+.*$/g, '')
+    const gameString = platformVersionString.replace(/-|\+.*$/g, '')
 
     let prefix = ''
     if (gameString.includes('~')) {
@@ -98,7 +98,7 @@ export const inferVersionInfo = async function (
       prefix = gameString
     }
 
-    const simplified = gameVersions
+    const simplified = platformVersions
       .filter((it) => it.version_type === 'release')
       .map((it) => it.version)
     return simplified.filter((version) => version.startsWith(prefix))
@@ -148,7 +148,7 @@ export const inferVersionInfo = async function (
         version_number: metadata.version,
         version_type: versionType(metadata.version),
         loaders: ['forge'],
-        game_versions: gameVersions
+        game_versions: platformVersions
           .filter(
             (x) =>
               x.version.startsWith(metadata.mcversion) &&
@@ -167,7 +167,7 @@ export const inferVersionInfo = async function (
         loaders: ['fabric'],
         version_type: versionType(metadata.version),
         game_versions: metadata.depends
-          ? gameVersionRange(metadata.depends.minecraft, gameVersions)
+          ? platformVersionRange(metadata.depends.minecraft, platformVersions)
           : [],
       }
     },
@@ -181,14 +181,14 @@ export const inferVersionInfo = async function (
         loaders: ['quilt'],
         version_type: versionType(metadata.quilt_loader.version),
         game_versions: metadata.quilt_loader.depends
-          ? gameVersionRange(
-              metadata.quilt_loader.depends.find((x) => x.id === 'minecraft')
-                ? metadata.quilt_loader.depends.find(
-                    (x) => x.id === 'minecraft'
-                  ).versions
-                : [],
-              gameVersions
-            )
+          ? platformVersionRange(
+            metadata.quilt_loader.depends.find((x) => x.id === 'minecraft')
+              ? metadata.quilt_loader.depends.find(
+                (x) => x.id === 'minecraft'
+              ).versions
+              : [],
+            platformVersions
+          )
           : [],
       }
     },
@@ -202,7 +202,7 @@ export const inferVersionInfo = async function (
         version_type: versionType(metadata.version),
         // We don't know which fork of Bukkit users are using
         loaders: [],
-        game_versions: gameVersions
+        game_versions: platformVersions
           .filter(
             (x) =>
               x.version.startsWith(metadata['api-version']) &&
@@ -236,7 +236,7 @@ export const inferVersionInfo = async function (
         version_number: metadata.versionId,
         version_type: versionType(metadata.versionId),
         loaders,
-        game_versions: gameVersions
+        game_versions: platformVersions
           .filter((x) => x.version === metadata.dependencies.minecraft)
           .map((x) => x.version),
       }
@@ -246,23 +246,23 @@ export const inferVersionInfo = async function (
       const metadata = JSON.parse(file)
 
       function getRange(versionA, versionB) {
-        const startingIndex = gameVersions.findIndex(
+        const startingIndex = platformVersions.findIndex(
           (x) => x.version === versionA
         )
-        const endingIndex = gameVersions.findIndex(
+        const endingIndex = platformVersions.findIndex(
           (x) => x.version === versionB
         )
 
         const final = []
         const filterOnlyRelease =
-          gameVersions[startingIndex].version_type === 'release'
+          platformVersions[startingIndex].version_type === 'release'
 
         for (let i = startingIndex; i >= endingIndex; i--) {
           if (
-            gameVersions[i].version_type === 'release' ||
+            platformVersions[i].version_type === 'release' ||
             !filterOnlyRelease
           ) {
-            final.push(gameVersions[i].version)
+            final.push(platformVersions[i].version)
           }
         }
 
@@ -270,32 +270,32 @@ export const inferVersionInfo = async function (
       }
 
       const loaders = []
-      let newGameVersions = []
+      let newPlatformVersions = []
 
       if (project.actualProjectType === 'mod') {
         loaders.push('datapack')
 
         switch (metadata.pack.pack_format) {
           case 4:
-            newGameVersions = getRange('1.13', '1.14.4')
+            newPlatformVersions = getRange('1.13', '1.14.4')
             break
           case 5:
-            newGameVersions = getRange('1.15', '1.16.1')
+            newPlatformVersions = getRange('1.15', '1.16.1')
             break
           case 6:
-            newGameVersions = getRange('1.16.2', '1.16.5')
+            newPlatformVersions = getRange('1.16.2', '1.16.5')
             break
           case 7:
-            newGameVersions = getRange('1.17', '1.17.1')
+            newPlatformVersions = getRange('1.17', '1.17.1')
             break
           case 8:
-            newGameVersions = getRange('1.18', '1.18.1')
+            newPlatformVersions = getRange('1.18', '1.18.1')
             break
           case 9:
-            newGameVersions.push('1.18.2')
+            newPlatformVersions.push('1.18.2')
             break
           case 10:
-            newGameVersions = getRange('1.19', '1.19.3')
+            newPlatformVersions = getRange('1.19', '1.19.3')
             break
           default:
         }
@@ -306,37 +306,37 @@ export const inferVersionInfo = async function (
 
         switch (metadata.pack.pack_format) {
           case 1:
-            newGameVersions = getRange('1.6.1', '1.8.9')
+            newPlatformVersions = getRange('1.6.1', '1.8.9')
             break
           case 2:
-            newGameVersions = getRange('1.9', '1.10.2')
+            newPlatformVersions = getRange('1.9', '1.10.2')
             break
           case 3:
-            newGameVersions = getRange('1.11', '1.12.2')
+            newPlatformVersions = getRange('1.11', '1.12.2')
             break
           case 4:
-            newGameVersions = getRange('1.13', '1.14.4')
+            newPlatformVersions = getRange('1.13', '1.14.4')
             break
           case 5:
-            newGameVersions = getRange('1.15', '1.16.1')
+            newPlatformVersions = getRange('1.15', '1.16.1')
             break
           case 6:
-            newGameVersions = getRange('1.16.2', '1.16.5')
+            newPlatformVersions = getRange('1.16.2', '1.16.5')
             break
           case 7:
-            newGameVersions = getRange('1.17', '1.17.1')
+            newPlatformVersions = getRange('1.17', '1.17.1')
             break
           case 8:
-            newGameVersions = getRange('1.18', '1.18.2')
+            newPlatformVersions = getRange('1.18', '1.18.2')
             break
           case 9:
-            newGameVersions = getRange('1.19', '1.19.2')
+            newPlatformVersions = getRange('1.19', '1.19.2')
             break
           case 11:
-            newGameVersions = getRange('22w42a', '22w44a')
+            newPlatformVersions = getRange('22w42a', '22w44a')
             break
           case 12:
-            newGameVersions.push('1.19.3')
+            newPlatformVersions.push('1.19.3')
             break
           default:
         }
@@ -344,7 +344,7 @@ export const inferVersionInfo = async function (
 
       return {
         loaders,
-        game_versions: newGameVersions,
+        game_versions: newPlatformVersions,
       }
     },
   }
@@ -368,7 +368,7 @@ export const createDataPackVersion = async function (
   version,
   primaryFile,
   members,
-  allGameVersions,
+  allPlatformVersions,
   loaders
 ) {
   // force version to start with number, as required by FML
@@ -394,9 +394,8 @@ export const createDataPackVersion = async function (
     description: project.description,
     authors: members.map((x) => x.name),
     contact: {
-      homepage: `${process.env.domain}/${project.project_type}/${
-        project.slug ?? project.id
-      }`,
+      homepage: `${process.env.domain}/${project.project_type}/${project.slug ?? project.id
+        }`,
     },
     license: project.license.id,
     icon: iconPath,
@@ -423,9 +422,8 @@ export const createDataPackVersion = async function (
           {}
         ),
         contact: {
-          homepage: `${process.env.domain}/${project.project_type}/${
-            project.slug ?? project.id
-          }`,
+          homepage: `${process.env.domain}/${project.project_type}/${project.slug ?? project.id
+            }`,
         },
         icon: iconPath,
       },
@@ -440,11 +438,11 @@ export const createDataPackVersion = async function (
     },
   }
 
-  const cutoffIndex = allGameVersions.findIndex((x) => x.version === '1.18.2')
+  const cutoffIndex = allPlatformVersions.findIndex((x) => x.version === '1.18.2')
 
   let maximumIndex = Number.MIN_VALUE
   for (const val of version.game_versions) {
-    const index = allGameVersions.findIndex((x) => x.version === val)
+    const index = allPlatformVersions.findIndex((x) => x.version === val)
     if (index > maximumIndex) {
       maximumIndex = index
     }
@@ -470,9 +468,8 @@ export const createDataPackVersion = async function (
         )}/updates/${project.id}/forge_updates.json`,
         credits: 'Generated by Modrinth',
         authors: members.map((x) => x.name).join(', '),
-        displayURL: `${process.env.domain}/${project.project_type}/${
-          project.slug ?? project.id
-        }`,
+        displayURL: `${process.env.domain}/${project.project_type}/${project.slug ?? project.id
+          }`,
       },
     ],
   }

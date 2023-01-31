@@ -21,35 +21,7 @@
         </section>
         <section class="nav-group columns" role="presentation">
           <section class="nav" aria-label="Page links">
-            <NavRow
-              class="navigation"
-              :links="[
-                {
-                  label: 'Mods',
-                  href: '/mods',
-                },
-                {
-                  label: 'Plugins',
-                  href: '/plugins',
-                },
-                {
-                  label: 'Data Packs',
-                  href: '/datapacks',
-                },
-                {
-                  label: 'Shaders',
-                  href: '/shaders',
-                },
-                {
-                  label: 'Resource Packs',
-                  href: '/resourcepacks',
-                },
-                {
-                  label: 'Modpacks',
-                  href: '/modpacks',
-                },
-              ]"
-            />
+            <NavRow class="navigation" :links="iDb.app.layout.navLinks" />
           </section>
           <section class="column-grow user-outer" aria-label="Account links">
             <section class="user-controls">
@@ -453,6 +425,7 @@ import GitHubIcon from '~/assets/images/utils/github.svg?inline'
 import NavRow from '~/components/ui/NavRow'
 import ModalCreation from '~/components/ui/ModalCreation'
 import Avatar from '~/components/ui/Avatar'
+import iDb from '~/iDb'
 
 export default {
   components: {
@@ -479,6 +452,7 @@ export default {
   },
   data() {
     return {
+      iDb,
       isDropdownOpen: false,
       owner: process.env.owner || 'modrinth',
       slug: process.env.slug || 'knossos',
