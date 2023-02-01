@@ -4,19 +4,25 @@
       <aside class="universal-card">
         <h1>Settings</h1>
         <NavStack>
-          <NavStackItem link="/settings" label="Appearance">
-            <PaintbrushIcon />
+          <NavStackItem
+            v-for="link in iDb.navLinks"
+            :key="link.path"
+            :link="`/${link.path}`"
+            :label="link.label"
+          >
+            <PaintbrushIcon v-if="link.icon === 'settings'" />
           </NavStackItem>
           <template v-if="$auth.user">
             <h3>User settings</h3>
-            <NavStackItem link="/settings/account" label="Account">
-              <UserIcon />
-            </NavStackItem>
-            <NavStackItem link="/settings/follows" label="Followed projects">
-              <HeartIcon />
-            </NavStackItem>
-            <NavStackItem link="/settings/monetization" label="Monetization">
-              <CurrencyIcon />
+            <NavStackItem
+              v-for="link in iDb.authedNavLinks"
+              :key="link.path"
+              :link="`/${link.path}`"
+              :label="link.label"
+            >
+              <CurrencyIcon v-if="link.icon === 'currency'" />
+              <UserIcon v-if="link.icon === 'user'" />
+              <HeartIcon v-if="link.icon === 'heart'" />
             </NavStackItem>
           </template>
         </NavStack>
@@ -37,6 +43,8 @@ import UserIcon from '~/assets/images/utils/user.svg?inline'
 import HeartIcon from '~/assets/images/utils/heart.svg?inline'
 import CurrencyIcon from '~/assets/images/utils/currency.svg?inline'
 
+import iDb from '~/iDb/pages/settings'
+
 export default {
   name: 'Settings',
   components: {
@@ -46,6 +54,11 @@ export default {
     UserIcon,
     HeartIcon,
     CurrencyIcon,
+  },
+  data() {
+    return {
+      iDb,
+    }
   },
 }
 </script>
