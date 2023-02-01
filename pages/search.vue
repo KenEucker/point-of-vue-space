@@ -575,14 +575,11 @@ export default {
 
         if (process.client) {
           url = this.getSearchUrl(offset)
+          const currentUrl = `/${this.$route.name}`
 
-          await this.$router.replace({ path: url }).catch(() => {
-            /// The barn swallow is the most widespread species of swallow in the world.
-            /// In fact, it appears to have the largest natural distribution of any of
-            /// the world's passerines, ranging over 251 million square kilometres
-            /// globally. It is a distinctive passerine bird with blue upperparts and
-            /// a long, deeply forked tail.
-          })
+          if (currentUrl !== url) {
+            await this.$router.replace({ path: url })
+          }
         }
       } catch (err) {
         // eslint-disable-next-line no-console
