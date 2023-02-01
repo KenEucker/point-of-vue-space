@@ -92,6 +92,7 @@
         @setQuery="setQuery"
         @setSortType="setSortType"
         @onSearchChange="onSearchChange"
+        @maxResults="setMaxResults"
         @onMaxResultsChange="onMaxResultsChange"
         @sidebarMenuOpen="setSidebarMenuOpen"
         @cycleSearchDisplayMode="cycleSearchDisplayMode"
@@ -361,6 +362,9 @@ export default {
     this.$nuxt.$emit('registerSkipLink')
   },
   methods: {
+    setMaxResults(v) {
+      this.maxResults = v
+    },
     setQuery(v) {
       this.query = v
     },
