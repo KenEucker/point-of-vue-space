@@ -39,147 +39,34 @@
             @toggleFacet="toggleFacet"
           />
 
-          <section
-            v-if="
-              projectType.id !== 'resourcepack' && projectType.id !== 'datapack'
-            "
-            aria-label="Loader filters"
-          >
-            <h3
-              v-if="
-                $tag.loaders.filter((x) =>
-                  x.supported_project_types.includes(projectType.actual)
-                ).length > 0
-              "
-              class="sidebar-menu-heading"
-            >
-              Loaders
-            </h3>
-            <SearchFilter
-              v-for="loader in $tag.loaders.filter((x) => {
-                if (
-                  projectType.id === 'mod' &&
-                  !showAllLoaders &&
-                  x.name !== 'forge' &&
-                  x.name !== 'fabric' &&
-                  x.name !== 'quilt'
-                ) {
-                  return false
-                } else if (projectType.id === 'mod' && showAllLoaders) {
-                  return $tag.loaderData.modLoaders.includes(x.name)
-                } else if (projectType.id === 'plugin') {
-                  return $tag.loaderData.pluginLoaders.includes(x.name)
-                } else if (projectType.id === 'datapack') {
-                  return $tag.loaderData.dataPackLoaders.includes(x.name)
-                } else {
-                  return x.supported_project_types.includes(projectType.actual)
-                }
-              })"
-              :key="loader.name"
-              ref="loaderFilters"
-              :active-filters="orFacets"
-              :display-name="$formatCategory(loader.name)"
-              :facet-name="`categories:'${encodeURIComponent(loader.name)}'`"
-              :icon="loader.icon"
-              @toggle="toggleOrFacet"
-            />
-            <Checkbox
-              v-if="projectType.id === 'mod'"
-              v-model="showAllLoaders"
-              :label="showAllLoaders ? 'Less' : 'More'"
-              description="Show all loaders"
-              style="margin-bottom: 0.5rem"
-              :border="false"
-              :collapsing-toggle-style="true"
-            />
-          </section>
-          <section
-            v-if="projectType.id === 'plugin'"
-            aria-label="Platform loader filters"
-          >
-            <h3
-              v-if="
-                $tag.loaders.filter((x) =>
-                  x.supported_project_types.includes(projectType.actual)
-                ).length > 0
-              "
-              class="sidebar-menu-heading"
-            >
-              Proxies
-            </h3>
-            <SearchFilter
-              v-for="loader in $tag.loaders.filter((x) =>
-                $tag.loaderData.pluginPlatformLoaders.includes(x.name)
-              )"
-              :key="loader.name"
-              ref="platformFilters"
-              :active-filters="orFacets"
-              :display-name="$formatCategory(loader.name)"
-              :facet-name="`categories:'${encodeURIComponent(loader.name)}'`"
-              :icon="loader.icon"
-              @toggle="toggleOrFacet"
-            />
-          </section>
-          <section
-            v-if="
-              !['resourcepack', 'plugin', 'shader', 'datapack'].includes(
-                projectType.id
-              )
-            "
-            aria-label="Environment filters"
-          >
-            <h3 class="sidebar-menu-heading">Environments</h3>
-            <SearchFilter
-              :active-filters="selectedEnvironments"
-              display-name="Client"
-              facet-name="client"
-              @toggle="toggleEnv"
-            >
-              <ClientIcon aria-hidden="true" />
-            </SearchFilter>
-            <SearchFilter
-              :active-filters="selectedEnvironments"
-              display-name="Server"
-              facet-name="server"
-              @toggle="toggleEnv"
-            >
-              <ServerIcon aria-hidden="true" />
-            </SearchFilter>
-          </section>
-          <h3 class="sidebar-menu-heading">Minecraft versions</h3>
-          <Checkbox
-            v-model="showSnapshots"
-            label="Include snapshots"
-            description="Include snapshots"
-            style="margin-bottom: 0.5rem"
-            :border="false"
+          <LoadersFilter
+            :or-facets="orFacets"
+            :project-type-actual="projectType.actual"
+            :project-type-id="projectType.id"
+            @toggleOrFacet="toggleOrFacet"
           />
-          <multiselect
-            v-model="selectedVersions"
-            :options="
-              showSnapshots
-                ? $tag.platformVersions.map((x) => x.version)
-                : $tag.platformVersions
-                    .filter((it) => it.version_type === 'release')
-                    .map((x) => x.version)
-            "
-            :multiple="true"
-            :searchable="true"
-            :show-no-results="false"
-            :close-on-select="false"
-            :clear-search-on-select="false"
-            :show-labels="false"
-            :selectable="() => selectedVersions.length <= 6"
-            placeholder="Choose versions..."
-            @input="onSearchChange(1)"
-          ></multiselect>
-          <h3 class="sidebar-menu-heading">Open source</h3>
-          <Checkbox
-            v-model="onlyOpenSource"
-            label="Open source only"
-            style="margin-bottom: 0.5rem"
-            :border="false"
-            @input="onSearchChange(1)"
+
+          <ProxiesFilter
+            :or-facets="orFacets"
+            :project-type-actual="projectType.actual"
+            :project-type-id="projectType.id"
+            @toggleOrFacet="toggleOrFacet"
+          />
+
+          <EnvironmentsFilter
+            :selected-environments="selectedEnvironments"
+            :project-type="projectType.id"
+            @toggleEnv="toggleEnv"
+          />
+
+          <VersionsFilter
+            :open-source="onlyOpenSource"
+            :versions="selectedVersions"
+            :snapshots="showSnapshots"
+            @showSnapshots="setShowSnapshots"
+            @onlyOpenSource="setOnlyOpenSource"
+            @selectedVersions="setSelectedVersions"
+            @onSearchChange="onSearchChange"
           />
         </div>
       </section>
@@ -390,13 +277,12 @@
 <script>
 import Multiselect from 'vue-multiselect'
 import CategoriesFilter from './search/CategoriesFilter'
+import LoadersFilter from './search/LoadersFilter'
+import ProxiesFilter from './search/ProxiesFilter'
+import EnvironmentsFilter from './search/EnvironmentsFilter'
+import VersionsFilter from './search/VersionsFilter'
 import ProjectCard from '~/components/ui/ProjectCard'
 import Pagination from '~/components/ui/Pagination'
-import SearchFilter from '~/components/ui/search/SearchFilter'
-import Checkbox from '~/components/ui/Checkbox'
-
-import ClientIcon from '~/assets/images/categories/client.svg?inline'
-import ServerIcon from '~/assets/images/categories/server.svg?inline'
 
 import SearchIcon from '~/assets/images/utils/search.svg?inline'
 import ClearIcon from '~/assets/images/utils/clear.svg?inline'
@@ -412,13 +298,13 @@ export default {
   components: {
     Advertisement,
     CategoriesFilter,
+    LoadersFilter,
+    ProxiesFilter,
+    EnvironmentsFilter,
+    VersionsFilter,
     ProjectCard,
     Pagination,
     Multiselect,
-    SearchFilter,
-    Checkbox,
-    ClientIcon,
-    ServerIcon,
     SearchIcon,
     ClearIcon,
     FilterIcon,
@@ -464,7 +350,6 @@ export default {
       },
 
       sidebarMenuOpen: false,
-      showAllLoaders: false,
 
       skipLink: '#search-results',
 
@@ -566,7 +451,7 @@ export default {
         this.query = ''
         this.maxResults = 20
         this.sortType = { display: 'Relevance', name: 'relevance' }
-        this.showAllLoaders = false
+        // this.showAllLoaders = false
         this.sidebarMenuOpen = false
 
         await this.clearFilters()
@@ -589,6 +474,15 @@ export default {
     this.$nuxt.$emit('registerSkipLink')
   },
   methods: {
+    setShowSnapshots(v) {
+      this.showSnapshots = v
+    },
+    setOnlyOpenSource(v) {
+      this.onlyOpenSource = v
+    },
+    setSelectedVersions(v) {
+      this.selectedVersions = v
+    },
     async clearFilters() {
       for (const facet of [...this.facets]) await this.toggleFacet(facet, true)
       for (const facet of [...this.orFacets])
