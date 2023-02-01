@@ -8,6 +8,8 @@ I have a rough plan of how I want to accomplish this task...
 
 [X] Move all references to what might be Modrinth specific content to localized constants in the (iDb)
 
+[X] Host a demo of a modified version of Knossos [DEMO LINK](https://point-of-vue-space.onrender.com/)
+
 [ ] Create a dependency injenction wrapper around the api interactions required to run the application (is this even necessary?)
 
 [ ] Stand up an identical API interface to the one used by Modrinth, (only simpler? is that possible?)
