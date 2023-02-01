@@ -1,6 +1,7 @@
 const dashboard = require('./dashboard')
 const moderation = require('./moderation')
 const search = require('./search')
+const settings = require('./settings')
 
 module.exports = {
   dashboard,
@@ -24,4 +25,5 @@ module.exports = {
   },
   moderation,
   search,
+  settings,
 }

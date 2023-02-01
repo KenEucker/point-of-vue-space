@@ -33,7 +33,7 @@ import ChartIcon from '~/assets/images/utils/chart.svg?inline'
 import CurrencyIcon from '~/assets/images/utils/currency.svg?inline'
 import ListIcon from '~/assets/images/utils/list.svg?inline'
 
-import iDb from '~/iDb'
+import iDb from '~/iDb/pages/dashboard'
 
 const computeCondition = (condition) => {
   switch (condition) {
@@ -62,7 +62,7 @@ export default {
   },
   computed: {
     navLinks: () => {
-      return iDb.pages.dashboard.navLinks.filter((l) =>
+      return iDb.navLinks.filter((l) =>
         l.condition?.length ? computeCondition(l.condition) : true
       )
     },
