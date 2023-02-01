@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import Features from './IndexFeatures'
+import Features from './Features'
 
 export default {
   components: {
