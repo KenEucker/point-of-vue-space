@@ -21,7 +21,7 @@
         </section>
         <section class="nav-group columns" role="presentation">
           <section class="nav" aria-label="Page links">
-            <NavRow class="navigation" :links="iDb.app.layout.navLinks" />
+            <NavRow class="navigation" :links="iDb.navLinks" />
           </section>
           <section class="column-grow user-outer" aria-label="Account links">
             <section class="user-controls">
@@ -160,52 +160,14 @@
           class="project-types"
         >
           <NuxtLink
+            v-for="link in iDb.navLinks"
+            :key="`mobile-nav--${link.href.substring(1)}`"
             :tabindex="isBrowseMenuOpen ? 0 : -1"
-            to="/mods"
+            :to="link.href"
             class="tab iconified-button"
             @click.native="isBrowseMenuOpen = false"
           >
-            <span>Mods</span>
-          </NuxtLink>
-          <NuxtLink
-            :tabindex="isBrowseMenuOpen ? 0 : -1"
-            to="/plugins"
-            class="tab iconified-button"
-            @click.native="isBrowseMenuOpen = false"
-          >
-            <span>Plugins</span>
-          </NuxtLink>
-          <NuxtLink
-            :tabindex="isBrowseMenuOpen ? 0 : -1"
-            to="/datapacks"
-            class="tab iconified-button"
-            @click.native="isBrowseMenuOpen = false"
-          >
-            <span>Data Packs</span>
-          </NuxtLink>
-          <NuxtLink
-            :tabindex="isBrowseMenuOpen ? 0 : -1"
-            to="/shaders"
-            class="tab iconified-button"
-            @click.native="isBrowseMenuOpen = false"
-          >
-            <span>Shaders</span>
-          </NuxtLink>
-          <NuxtLink
-            :tabindex="isBrowseMenuOpen ? 0 : -1"
-            to="/resourcepacks"
-            class="tab iconified-button"
-            @click.native="isBrowseMenuOpen = false"
-          >
-            <span>Resource Packs</span>
-          </NuxtLink>
-          <NuxtLink
-            :tabindex="isBrowseMenuOpen ? 0 : -1"
-            to="/modpacks"
-            class="tab iconified-button"
-            @click.native="isBrowseMenuOpen = false"
-          >
-            <span>Modpacks</span>
+            <span>{{ link.label }}</span>
           </NuxtLink>
         </div>
       </section>
@@ -310,77 +272,93 @@
       <div class="logo-info" role="region" aria-label="Modrinth information">
         <BrandTextLogo aria-hidden="true" class="text-logo" />
         <p>
-          Modrinth is
+          {{ iDb.footerBranding.description1 }}
           <a
             :target="$external()"
-            href="https://github.com/modrinth"
+            :href="iDb.footerBranding.split1Link"
             class="text-link"
             rel="noopener noreferrer nofollow"
+            >{{ iDb.footerBranding.split1 }}</a
           >
-            open source</a
-          >.
+          {{ iDb.footerBranding.description2 }}
         </p>
         <p>
           {{ owner }}/{{ slug }} {{ branch }}@<a
             :target="$external()"
-            :href="'https://github.com/' + owner + '/' + slug + '/tree/' + hash"
+            :href="
+              iDb.footerBranding.ownerLinkBase +
+              owner +
+              '/' +
+              slug +
+              '/tree/' +
+              hash
+            "
             class="text-link"
             rel="noopener noreferrer nofollow"
             >{{ hash.substring(0, 7) }}</a
           >
         </p>
-        <p>© Rinth, Inc.</p>
+        <p>{{ iDb.footerBranding.copyright }}</p>
       </div>
-      <div class="links links-1" role="region" aria-label="Legal">
-        <h4 aria-hidden="true">Company</h4>
-        <nuxt-link to="/legal/terms">Terms</nuxt-link>
-        <nuxt-link to="/legal/privacy">Privacy</nuxt-link>
-        <nuxt-link to="/legal/rules">Rules</nuxt-link>
-        <a :target="$external()" href="https://careers.modrinth.com">
-          Careers <span class="count-bubble">2</span>
+      <div
+        v-if="iDb.footerLinks.links1.length"
+        class="links links-1"
+        role="region"
+        :aria-label="iDb.footerLinks.links1Aria"
+      >
+        <h4 aria-hidden="true">{{ iDb.footerLinks.links1Heading }}</h4>
+        <template v-for="link in iDb.footerLinks.links1">
+          <a
+            v-if="link.external"
+            :key="`footer-links--${link.href.substring(1)}`"
+            :target="$external()"
+            :href="link.href"
+          >
+            {{ link.label }}
+            <span v-if="link.bubble" class="count-bubble">{{
+              link.bubble
+            }}</span>
+          </a>
+          <nuxt-link
+            v-else
+            :key="`footer-navlinks--${link.href.substring(1)}`"
+            :to="link.href"
+            >{{ link.label }}</nuxt-link
+          >
+        </template>
+      </div>
+      <div
+        v-if="iDb.footerLinks.links2.length"
+        class="links links-2"
+        role="region"
+        :aria-label="iDb.footerLinks.links2Aria"
+      >
+        <h4 aria-hidden="true">{{ iDb.footerLinks.links2Heading }}</h4>
+        <a
+          v-for="link in iDb.footerLinks.links2"
+          :key="`footer-links--${link.href.substring(1)}`"
+          rel="noopener noreferrer nofollow"
+          :target="$external()"
+          :href="link.href"
+        >
+          {{ link.label }}
         </a>
       </div>
-      <div class="links links-2" role="region" aria-label="Resources">
-        <h4 aria-hidden="true">Resources</h4>
-        <a :target="$external()" href="https://blog.modrinth.com">Blog</a>
-        <a :target="$external()" href="https://docs.modrinth.com">Docs</a>
-        <a :target="$external()" href="https://status.modrinth.com">Status</a>
+      <div
+        v-if="iDb.footerLinks.links3.length"
+        class="links links-3"
+        role="region"
+        :aria-label="iDb.footerLinks.links3Aria"
+      >
+        <h4 aria-hidden="true">{{ iDb.footerLinks.links3Heading }}</h4>
         <a
+          v-for="link in iDb.footerLinks.links3"
+          :key="`footer-links--${link.href.substring(1)}`"
           rel="noopener noreferrer nofollow"
           :target="$external()"
-          href="https://github.com/modrinth"
-          >GitHub</a
+          :href="link.href"
         >
-      </div>
-      <div class="links links-3" role="region" aria-label="Interact">
-        <h4 aria-hidden="true">Interact</h4>
-        <a
-          rel="noopener noreferrer nofollow"
-          :target="$external()"
-          href="https://discord.gg/EUHuJHt"
-        >
-          Discord
-        </a>
-        <a
-          rel="noopener noreferrer nofollow"
-          :target="$external()"
-          href="https://twitter.com/modrinth"
-        >
-          Twitter
-        </a>
-        <a
-          rel="noopener noreferrer nofollow"
-          :target="$external()"
-          href="https://floss.social/@modrinth"
-        >
-          Mastodon
-        </a>
-        <a
-          rel="noopener noreferrer nofollow"
-          :target="$external()"
-          href="https://crowdin.com/project/modrinth"
-        >
-          Crowdin
+          {{ link.label }}
         </a>
       </div>
       <div class="buttons">
@@ -425,7 +403,8 @@ import GitHubIcon from '~/assets/images/utils/github.svg?inline'
 import NavRow from '~/components/ui/NavRow'
 import ModalCreation from '~/components/ui/ModalCreation'
 import Avatar from '~/components/ui/Avatar'
-import iDb from '~/iDb'
+
+import iDb from '~/iDb/layouts'
 
 export default {
   components: {
@@ -453,6 +432,7 @@ export default {
   data() {
     return {
       iDb,
+
       isDropdownOpen: false,
       owner: process.env.owner || 'modrinth',
       slug: process.env.slug || 'knossos',

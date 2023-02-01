@@ -156,7 +156,7 @@ module.exports = {
     },
   },
   headers: {
-    userAgent: `Knossos generator (admin@pointofvue.org)`,
+    userAgent: `Knossos generator (admin@omknossos.org)`,
   },
   build: {
     tags: [

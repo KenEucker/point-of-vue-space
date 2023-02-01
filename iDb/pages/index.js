@@ -15,7 +15,7 @@ module.exports = {
     buttons: {
       discover: { label: 'Discover mods', to: '/mods', class: 'brand-button' },
       signup: {
-        label: '',
+        label: 'Sign Up',
         to: '/dashboard/projects',
         type: 'link',
       },
