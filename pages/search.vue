@@ -84,10 +84,10 @@
       <SearchControls
         :project-type-id="projectType.id"
         :project-type-display="projectType.display"
-        :max-results="maxResults"
+        :max-num-results="maxResults"
         :max-results-for-view="maxResultsForView"
         :sort-types="sortTypes"
-        :sort-type="sortType"
+        :sort="sortType"
         :query-string="query"
         @setQuery="setQuery"
         @setSortType="setSortType"
@@ -282,10 +282,11 @@ export default {
     }
 
     if (this.$route.query.m) {
-      this.maxResults = this.$route.query.m
+      this.maxResults = Number(this.$route.query.m)
     }
     if (this.$route.query.o) {
-      this.currentPage = Math.ceil(this.$route.query.o / this.maxResults) + 1
+      this.currentPage =
+        Math.ceil(Number(this.$route.query.o) / this.maxResults) + 1
     }
 
     this.projectType = this.$tag.projectTypes.find(
@@ -343,6 +344,8 @@ export default {
         this.isLoading = false
 
         this.setClosestMaxResults()
+
+        return false
       },
     },
   },
@@ -440,12 +443,12 @@ export default {
 
       await this.onSearchChange(newPageNumber)
     },
-    async onMaxResultsChange(newPageNumber) {
-      newPageNumber = Math.max(
+    async onMaxResultsChange() {
+      const newPageNumber = Math.max(
         1,
         Math.min(
           Math.floor(
-            newPageNumber / (this.maxResults / this.previousMaxResults)
+            this.currentPage / (this.maxResults / this.previousMaxResults)
           ),
           this.pageCount
         )

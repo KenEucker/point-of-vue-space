@@ -57,7 +57,7 @@
           :close-on-select="true"
           :show-labels="false"
           :allow-empty="false"
-          @input="$emit('onMaxResultsChange', currentPage)"
+          @input="$emit('onMaxResultsChange')"
         />
       </div>
       <button
@@ -92,7 +92,7 @@ import ListIcon from '~/assets/images/utils/list.svg?inline'
 import ImageIcon from '~/assets/images/utils/image.svg?inline'
 
 export default {
-  name: 'ModrinthNotice',
+  name: 'SearchControls',
   components: {
     Multiselect,
     SearchIcon,
@@ -112,19 +112,19 @@ export default {
       default: null,
       sync: true,
     },
-    notice: {
-      type: String,
-      default: null,
-      sync: true,
-    },
-    sort: {
-      type: String,
-      default: null,
+    maxNumResults: {
+      type: Number,
+      default: 1,
       sync: true,
     },
     queryString: {
       type: String,
       default: null,
+      sync: true,
+    },
+    sort: {
+      type: Object,
+      default: () => ({}),
       sync: true,
     },
     sortTypes: {
@@ -168,7 +168,7 @@ export default {
     },
     maxResults: {
       get() {
-        return this.maxNumberOfResults
+        return this.maxNumResults
       },
       set(v) {
         this.$emit('maxResults', v)
