@@ -8,10 +8,10 @@
 </template>
 
 <script>
-import Banner from '~/components/modrinth/pages/IndexBanner'
-import Users from '~/components/modrinth/pages/IndexUsers'
-import Landing from '~/components/modrinth/pages/IndexLanding'
-import Creators from '~/components/modrinth/pages/IndexCreators'
+import Banner from '~/components/pages/index/Banner'
+import Users from '~/components/pages/index/Users'
+import Landing from '~/components/pages/index/Landing'
+import Creators from '~/components/pages/index/Creators'
 
 import iDb from '~/iDb'
 

@@ -165,13 +165,13 @@
 </template>
 
 <script>
-import CategoriesFilter from '~/components/modrinth/pages/SearchCategoriesFilter'
-import LoadersFilter from '~/components/modrinth/pages/SearchLoadersFilter'
-import ProxiesFilter from '~/components/modrinth/pages/SearchProxiesFilter'
-import EnvironmentsFilter from '~/components/modrinth/pages/SearchEnvironmentsFilter'
-import VersionsFilter from '~/components/modrinth/pages/SearchVersionsFilter'
-import ModrinthNotice from '~/components/modrinth/pages/SearchModrinthNotice'
-import SearchControls from '~/components/modrinth/pages/SearchSearchControls'
+import CategoriesFilter from '~/components/pages/search/CategoriesFilter'
+import LoadersFilter from '~/components/pages/search/LoadersFilter'
+import ProxiesFilter from '~/components/pages/search/ProxiesFilter'
+import EnvironmentsFilter from '~/components/pages/search/EnvironmentsFilter'
+import VersionsFilter from '~/components/pages/search/VersionsFilter'
+import ModrinthNotice from '~/components/pages/search/ModrinthNotice'
+import SearchControls from '~/components/pages/search/SearchControls'
 
 import ProjectCard from '~/components/ui/ProjectCard'
 import Pagination from '~/components/ui/Pagination'
