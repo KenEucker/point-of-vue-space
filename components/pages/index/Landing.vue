@@ -1,6 +1,6 @@
 <template>
   <div class="landing-hero">
-    <LogoIcon />
+    <LogoAltIcon style="transform: scale(2)" />
     <h1 class="main-header">
       {{ iDb.index.mainHeader }}
       <div class="animate-strong">
@@ -62,12 +62,13 @@
 </template>
 
 <script>
-import LogoIcon from '~/assets/images/logo.svg?inline'
+import LogoAltIcon from '~/assets/images/logo-alt.svg?inline'
+
 import iDb from '~/iDb/pages'
 
 export default {
   components: {
-    LogoIcon,
+    LogoAltIcon,
   },
   data() {
     return {

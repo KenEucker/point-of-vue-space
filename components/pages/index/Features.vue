@@ -437,7 +437,7 @@ export default {
           inset: 0;
           background: linear-gradient(
             0deg,
-            #05ce45 0%,
+            #ec3017 0%,
             rgba(5, 206, 69, 0) 100%
           );
           opacity: 0.2;
