@@ -1,12 +1,9 @@
 <template>
   <Modal ref="modal" :header="'Transfer to ' + $formatWallet(wallet)">
     <div class="modal-transfer">
-      <span
-        >You are initiating a transfer of your revenue from Modrinth's Creator
-        Monetization Program. How much of your
-        <strong>{{ $formatMoney(balance) }}</strong> balance would you like to
-        transfer?</span
-      >
+      <span>
+        <strong>{{ $formatMoney(balance) }}</strong>
+      </span>
       <div class="confirmation-input">
         <input
           id="confirmation"
@@ -26,17 +23,18 @@
           "
           v-model="consentedFee"
         >
-          <template v-if="wallet === 'venmo'"
-            >I acknowledge that $0.25 will be deducted from the amount I receive
-            to cover {{ $formatWallet(wallet) }} processing fees.</template
-          >
-          <template v-else
-            >I acknowledge that an estimated
-            {{ $formatMoney(calcProcessingFees()) }} will be deducted from the
-            amount I receive to cover {{ $formatWallet(wallet) }} processing
-            fees and that any excess will be returned to my Modrinth
-            balance.</template
-          >
+          <template v-if="wallet === 'venmo'">
+            {{ iDb.transfer.venmoDescription1 }}
+            {{ $formatWallet(wallet) }}
+            {{ iDb.transfer.venmoDescription2 }}
+          </template>
+          <template v-else>
+            {{ iDb.transfer.acknowledgeDescription1 }}
+            {{ $formatMoney(calcProcessingFees()) }}
+            {{ iDb.transfer.acknowledgeDescription2 }}
+            {{ $formatWallet(wallet) }}
+            {{ iDb.transfer.acknowledgeDescription3 }}
+          </template>
         </Checkbox>
         <Checkbox
           v-if="
@@ -46,7 +44,6 @@
           "
           v-model="consentedAccount"
         >
-          I confirm that I an initiating a transfer to the following
           {{ $formatWallet(wallet) }} account: {{ account }}
         </Checkbox>
         <span
@@ -90,6 +87,8 @@ import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
 import Modal from '~/components/ui/Modal'
 import Checkbox from '~/components/ui/Checkbox'
 
+import iDb from '~/iDb/components/ui'
+
 export default {
   name: 'ModalTransfer',
   components: {
@@ -123,6 +122,8 @@ export default {
   },
   data() {
     return {
+      iDb,
+
       consentedFee: false,
       consentedAccount: false,
       amount: '',

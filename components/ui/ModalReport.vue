@@ -3,18 +3,15 @@
     <div class="modal-report legacy-label-styles">
       <div class="markdown-body">
         <p>
-          Modding should be safe for everyone, so we take abuse and malicious
-          intent seriously at Modrinth. We want to hear about harmful content on
-          the site that violates our
+          {{ iDb.report.description1 }}
           <nuxt-link to="/legal/terms">ToS</nuxt-link> and
           <nuxt-link to="/legal/rules">Rules</nuxt-link>. Rest assured, we’ll
           keep your identifying information private.
         </p>
         <p v-if="itemType === 'project' || itemType === 'version'">
           Please <strong>do not</strong> use this to report bugs with the
-          project itself. This form is only for submitting a report to Modrinth
-          staff. If the project has an Issues link or a Discord invite, consider
-          reporting it there.
+          project itself.
+          {{ iDb.report.description2 }}
         </p>
       </div>
       <label class="report-label" for="report-type">
@@ -79,6 +76,8 @@ import CheckIcon from '~/assets/images/utils/check.svg?inline'
 import Modal from '~/components/ui/Modal'
 import Chips from '~/components/ui/Chips'
 
+import iDb from '~/iDb/components/ui'
+
 export default {
   name: 'ModalReport',
   components: {
@@ -100,6 +99,8 @@ export default {
   },
   data() {
     return {
+      iDb,
+
       reportType: '',
       body: '',
       bodyViewType: 'source',

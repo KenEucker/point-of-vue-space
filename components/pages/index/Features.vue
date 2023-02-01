@@ -158,20 +158,23 @@
           </defs>
         </svg>
       </div>
-      <h4>Constantly Evolving</h4>
+      <h4>{{ iDb.features.evolvingHeading }}</h4>
       <p>
-        Get the best modding experience possible with constant updates from the
-        Modrinth team
+        {{ iDb.features.evolvingDescription }}
       </p>
     </div>
   </div>
 </template>
 
 <script>
+import iDb from '~/iDb/components/pages'
+
 export default {
   components: {},
   data() {
-    return {}
+    return {
+      iDb,
+    }
   },
   fetch() {},
   methods: {},

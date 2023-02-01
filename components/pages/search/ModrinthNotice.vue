@@ -6,7 +6,7 @@
     class="card warning"
     aria-label="Warning"
   >
-    {{ props.notice }}
+    {{ notice }}
     <a
       href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/"
       :target="$external()"

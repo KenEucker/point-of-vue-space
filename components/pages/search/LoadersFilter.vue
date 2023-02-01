@@ -58,12 +58,14 @@
 </template>
 
 <script>
+import Checkbox from '~/components/ui/Checkbox'
 import SearchFilter from '~/components/ui/search/SearchFilter'
 
 export default {
   name: 'LoadersFilter',
   components: {
     SearchFilter,
+    Checkbox,
   },
   props: {
     orFacets: {

@@ -17,7 +17,7 @@
         <h2>Project settings</h2>
         <NavStack>
           <NavStackItem
-            v-for="link in iDb.navSettingsLinks"
+            v-for="link in iDb.id.navSettingsLinks"
             :key="link.path"
             :link="`/${project.project_type}/${project.slug}/${link.path}`"
             :label="link.label"
@@ -32,7 +32,7 @@
 
           <h3>Relevant pages</h3>
           <NavStackItem
-            v-for="link in iDb.navRelevantLinks"
+            v-for="link in iDb.id.navRelevantLinks"
             :key="link.path"
             :link="`/${project.project_type}/${project.slug}/${link.path}`"
             :label="link.label"
@@ -550,6 +550,7 @@
           </div>
           <div
             v-if="
+              iDb.settings.clientSideField.enabled &&
               project.project_type !== 'resourcepack' &&
               project.project_type !== 'plugin' &&
               project.project_type !== 'shader' &&
@@ -564,6 +565,7 @@
           </div>
           <div
             v-if="
+              iDb.settings.serverSideField.enabled &&
               project.project_type !== 'resourcepack' &&
               project.project_type !== 'plugin' &&
               project.project_type !== 'shader' &&
@@ -601,14 +603,14 @@
           aria-label="Warning"
         >
           {{ project.title }}
-          {{ iDb.withheldWarning.description1 }}
-          <nuxt-link :to="iDb.withheldWarning.splitLink">{{
-            iDb.withheldWarning.split
+          {{ iDb.id.withheldWarning.description1 }}
+          <nuxt-link :to="iDb.id.withheldWarning.splitLink">{{
+            iDb.id.withheldWarning.split
           }}</nuxt-link
           >.
-          {{ iDb.withheldWarning.description2 }}
+          {{ iDb.id.withheldWarning.description2 }}
           {{ project.title }}
-          {{ iDb.withheldWarning.description3 }}
+          {{ iDb.id.withheldWarning.description3 }}
         </div>
         <div
           v-if="project.status === 'archived'"
@@ -624,34 +626,34 @@
           aria-label="Warning"
         >
           To install {{ project.title }}, visit
-          <a :href="iDb.modpackInformation.docsLink" :target="$external()"
+          <a :href="iDb.id.modpackInformation.docsLink" :target="$external()"
             >our documentation</a
           >
-          {{ iDb.modpackInformation.description1 }}
+          {{ iDb.id.modpackInformation.description1 }}
           <a
-            v-if="iDb.modpackInformation.split2"
-            :href="iDb.modpackInformation.split2Link"
+            v-if="iDb.id.modpackInformation.split2"
+            :href="iDb.id.modpackInformation.split2Link"
             :target="$external()"
             rel="noopener noreferrer nofollow"
           >
-            {{ iDb.modpackInformation.split2 }}</a
+            {{ iDb.id.modpackInformation.split2 }}</a
           >
-          {{ iDb.modpackInformation.description2 }}
+          {{ iDb.id.modpackInformation.description2 }}
           <a
-            v-if="iDb.modpackInformation.split3"
-            :href="iDb.modpackInformation.split3Link"
+            v-if="iDb.id.modpackInformation.split3"
+            :href="iDb.id.modpackInformation.split3Link"
             :target="$external()"
             rel="noopener noreferrer nofollow"
-            >{{ iDb.modpackInformation.split3 }}</a
+            >{{ iDb.id.modpackInformation.split3 }}</a
           >
-          {{ iDb.modpackInformation.description3 }}
+          {{ iDb.id.modpackInformation.description3 }}
           <a
-            v-if="iDb.modpackInformation.split4"
-            :href="iDb.modpackInformation.split4Link"
+            v-if="iDb.id.modpackInformation.split4"
+            :href="iDb.id.modpackInformation.split4Link"
             :target="$external()"
             rel="noopener noreferrer nofollow"
           >
-            {{ iDb.modpackInformation.split4 }}</a
+            {{ iDb.id.modpackInformation.split4 }}</a
           >.
         </div>
         <Advertisement
@@ -759,7 +761,7 @@ import CrossIcon from '~/assets/images/utils/x.svg?inline'
 import EditIcon from '~/assets/images/utils/edit.svg?inline'
 import ModerationIcon from '~/assets/images/sidebar/admin.svg?inline'
 
-import iDb from '~/iDb/type/id'
+import iDb from '~/iDb/type'
 
 export default {
   components: {

@@ -131,10 +131,11 @@ export default {
     },
     getValidVersions() {
       if (!this.cachedValidVersions) {
-        this.cachedValidVersions = this.$tag.platformVersions.filter((gameVer) =>
-          this.versions.some((projVer) =>
-            projVer.game_versions.includes(gameVer.version)
-          )
+        this.cachedValidVersions = this.$tag.platformVersions.filter(
+          (gameVer) =>
+            this.versions.some((projVer) =>
+              projVer.game_versions.includes(gameVer.version)
+            )
         )
       }
       return this.cachedValidVersions
@@ -159,10 +160,11 @@ export default {
       this.selectedLoaders = this.selectedLoaders.filter((loader) =>
         this.getValidLoaders().includes(loader)
       )
-      this.selectedPlatformVersions = this.selectedPlatformVersions.filter((version) =>
-        this.getValidVersions().some(
-          (validVersion) => validVersion.version === version
-        )
+      this.selectedPlatformVersions = this.selectedPlatformVersions.filter(
+        (version) =>
+          this.getValidVersions().some(
+            (validVersion) => validVersion.version === version
+          )
       )
 
       const temp = this.versions.filter(
