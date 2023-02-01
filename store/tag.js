@@ -1,5 +1,6 @@
 import tags from '~/generated/state.json'
-import { moderation } from '~/iDb'
+import { pages } from '~/iDb'
+const { moderation } = pages
 
 export const state = () => ({
   categories: tags.categories,
