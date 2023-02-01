@@ -691,7 +691,7 @@
           />
         </div>
         <div>
-          <h4>Game versions</h4>
+          <h4>{{ iDb.platformVersionHeading }}</h4>
           <template v-if="isEditing">
             <multiselect
               v-model="version.game_versions"
@@ -813,6 +813,8 @@ import BoxIcon from '~/assets/images/utils/box.svg?inline'
 import RightArrowIcon from '~/assets/images/utils/right-arrow.svg?inline'
 import Modal from '~/components/ui/Modal.vue'
 
+import iDb from '~/iDb/type/version'
+
 export default {
   components: {
     Modal,
@@ -882,6 +884,8 @@ export default {
   },
   data() {
     return {
+      iDb,
+
       primaryFile: {},
       alternateFile: {},
       version: {},
