@@ -30,7 +30,7 @@ module.exports = {
       ' has functionality on the <strong>logical</strong> server. Remember that Singleplayer contains an integrated server.',
   },
   projectDelete:
-    "Removes your project from Modrinth's servers and search. Clicking on this will delete your project, so be extra careful!",
+    "Removes your project from Knossos's servers and search. Clicking on this will delete your project, so be extra careful!",
   license: {
     description1: 'It is very important to choose a proper license for your',
     preSplit: 'Enter a valid ',
@@ -44,7 +44,7 @@ module.exports = {
   },
   members: {
     description:
-      "Enter the Modrinth username of the person you'd like to invite to be a member of this project.",
+      "Enter the Knossos username of the person you'd like to invite to be a member of this project.",
     monetization: {
       enabled: true,
     },

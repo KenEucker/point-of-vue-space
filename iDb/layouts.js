@@ -1,11 +1,13 @@
 module.exports = {
   brandingLink: {
     to: '/',
-    aria: 'Modrinth home page',
+    aria: 'Knossos home page',
   },
+  notAfiliated:
+    'NOT AN OFFICIAL RINTH INC PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MODRINTH AT THIS TIME.',
   navLinks: [
     {
-      label: 'Mods',
+      label: 'Templates',
       href: '/mods',
     },
     {
@@ -13,25 +15,17 @@ module.exports = {
       href: '/plugins',
     },
     {
-      label: 'Data Packs',
+      label: 'Widgets',
       href: '/datapacks',
     },
     {
-      label: 'Shaders',
+      label: 'Vues',
       href: '/shaders',
-    },
-    {
-      label: 'Resource Packs',
-      href: '/resourcepacks',
-    },
-    {
-      label: 'Modpacks',
-      href: '/modpacks',
     },
   ],
   footerBranding: {
-    aria: 'Modrinth information',
-    description1: 'Modrinth is',
+    aria: 'Knossos information',
+    description1: 'Knossos is',
     split1: 'open source',
     split1Link: 'https://github.com/modrinth',
     description2: '.',

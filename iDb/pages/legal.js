@@ -1,16 +1,17 @@
 module.exports = {
-  appUrl: 'https://modrinth.com',
-  appName: 'Modrinth',
-  orgName: 'Modrinth',
-  orgMission: 'modding platform focused on Minecraft',
-  gdprMailto: 'gdpr@modrinth.com',
-  supportMailto: 'support@modrinth.com',
-  jaiMailto: 'jai@modrinth.com',
+  appUrl: 'https://knossos.tech',
+  appName: 'Knossos',
+  orgName: 'Knossos',
+  orgMission:
+    'Vue-based frontend with server-side rendering and caching for great user experience, speed, and compatibility.',
+  gdprMailto: 'gdpr@knossos.tech',
+  supportMailto: 'support@knossos.tech',
+  jaiMailto: 'jai@knossos.tech',
 
   head: {
     meta: {
       'og:url': {
-        content: 'https://modrinth.com/legal/privacy',
+        content: 'https://knossos.tech/legal/privacy',
       },
     },
   },

@@ -152,6 +152,11 @@ import iDb from '~/iDb/pages/legal'
 
 export default {
   auth: false,
+  data() {
+    return {
+      iDb,
+    }
+  },
   head: {
     title: 'Terms - ' + iDb.appName,
     meta: [

@@ -1,5 +1,5 @@
 module.exports = {
-  appName: 'Modrinth',
+  appName: 'Knossos',
   platformVersionHeading: 'Game versions',
   packageMod: {
     enabled: true,

@@ -1,14 +1,14 @@
 module.exports = {
   modpacksAlphaNotice:
-    'Modpack support is currently in alpha, and modpacks can only be created and installed through third party tools. Our documentation includes instructions on',
+    'Modpack support is currently in alpha and can only be accessed through third-party tools. Please refer to our documentation for instructions.',
   showAdvertisement: true,
-  appName: 'Modrinth',
+  appName: 'Knossos',
   head: {
     meta: {
       description: {
-        content1: 'Search and browse thousands of Minecraft',
+        content1: 'Discover and explore a vast collection of',
         content2:
-          's on Modrinth with instant, accurate search results. Our filters help you quickly find the best Minecraft ',
+          ' on Knossos with our powerful search engine and intuitive filters.',
       },
     },
   },

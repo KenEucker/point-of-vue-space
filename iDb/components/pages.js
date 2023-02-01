@@ -1,42 +1,41 @@
 module.exports = {
   banner: {
-    appName: 'Modrinth',
-    blogLink:
-      'https://blog.modrinth.com/subscribe?utm_source=website&utm_source=homepage&utm_campaign=newsletter',
+    appName: 'Knossos',
+    blogLink: 'https://blog.knossos.tech/subscribe',
   },
   creators: {
     sectionHeading: 'For Creators',
-    sectionTagline: 'Share your content with the world',
+    sectionTagline: 'Build and Share Your Software',
     sectionDescription:
-      'Give an online home to your creations and reach a massive audience of dedicated players',
+      'Bring your software ideas to life and share them with the world using Knossos.',
   },
   features: {
-    evolvingHeading: 'Constantly Evolving',
+    evolvingHeading: 'Continuously Improving',
     evolvingDescription:
-      'Get the best modding experience possible with constant updates from the Modrinth team',
+      'Take advantage of constantly improving features and support from the Knossos team.',
   },
   users: {
-    sectionHeading: 'For Players',
-    sectionTagline: 'Discover over 5,000 creations',
+    sectionHeading: 'For Users',
+    sectionTagline: 'Discover Innovative Software',
     sectionDescription:
-      'From magical biomes to cursed dungeons, you can be sure to find content to bring your gameplay to the next level.',
+      'Find and try out new software created by a community of talented developers on Knossos.',
   },
   find: {
     enabled: true,
-    sectionHeading: 'Find what you want, quickly and easily',
+    sectionHeading: 'Effortless Search',
     sectionDescription:
-      'Modrinth’s lightning-fast search and powerful filters let you find what you want as you type.',
+      'Easily search and discover software on Knossos with its fast and intuitive search function.',
   },
   follow: {
     enabled: true,
-    sectionHeading: 'Follow projects you love',
+    sectionHeading: 'Stay Up to Date',
     sectionDescription:
-      'Get notified every time your favorite projects update and stay in the loop',
+      'Stay informed about updates and new releases from your favorite software on Knossos.',
   },
   loaders: {
     enabled: true,
-    sectionHeading: 'Play with your favorite launcher',
+    sectionHeading: 'Integration with Popular Platforms',
     sectionDescription:
-      "Modrinth's open-source API lets launchers add deep integration with Modrinth. We're already supported by some of the most popular launchers like ATLauncher, MultiMC, and Prism Launcher.",
+      "Take advantage of Knossos's 2nd-party Graph API and enjoy deep integration with popular websites like GitHub, Imgur, and Google.",
   },
 }

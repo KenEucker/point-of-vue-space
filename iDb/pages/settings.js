@@ -1,5 +1,5 @@
 module.exports = {
-  appName: 'Modrinth',
+  appName: 'Knossos',
   discordLink: 'https://discord.gg/EUHuJHt',
   head: {
     meta: {

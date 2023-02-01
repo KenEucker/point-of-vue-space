@@ -3,7 +3,7 @@ module.exports = {
     {
       actual: 'mod',
       id: 'mod',
-      display: 'mod',
+      display: 'template',
     },
     {
       actual: 'mod',
@@ -13,22 +13,12 @@ module.exports = {
     {
       actual: 'mod',
       id: 'datapack',
-      display: 'data pack',
+      display: 'widget',
     },
     {
       actual: 'shader',
       id: 'shader',
-      display: 'shader',
-    },
-    {
-      actual: 'resourcepack',
-      id: 'resourcepack',
-      display: 'resource pack',
-    },
-    {
-      actual: 'modpack',
-      id: 'modpack',
-      display: 'modpack',
+      display: 'vue',
     },
   ],
   loaderData: {
@@ -51,5 +41,5 @@ module.exports = {
   approvedStatuses: ['approved', 'archived', 'unlisted', 'private'],
   rejectedStatuses: ['rejected', 'withheld'],
   staffRoles: ['moderator', 'admin'],
-  appName: 'Modrinth',
+  appName: 'Knossos',
 }

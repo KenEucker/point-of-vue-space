@@ -7,5 +7,5 @@ module.exports = {
       chevron: true,
     },
   ],
-  appName: 'Modrinth',
+  appName: 'Knossos',
 }

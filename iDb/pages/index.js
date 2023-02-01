@@ -8,15 +8,19 @@ const notifications = require('./notifications')
 module.exports = {
   dashboard,
   analytics: {
-    appName: 'Modrinth',
+    appName: 'Knossos',
   },
   index: {
-    mainHeader: 'The place for Minecraft',
-    mainHeaderMod: 'mods',
+    mainHeader: 'The place for creative software',
+    mainHeaderMod: 'projects',
     secondaryHeader:
-      'Discover, play, and share Minecraft content through our open-source platform built for the community.',
+      'Discover, play, and share creative software content through our open-source platform built for the community.',
     buttons: {
-      discover: { label: 'Discover mods', to: '/mods', class: 'brand-button' },
+      discover: {
+        label: 'Discover projects',
+        to: '/mods',
+        class: 'brand-button',
+      },
       signup: {
         label: 'Sign Up',
         to: '/dashboard/projects',
@@ -34,7 +38,7 @@ module.exports = {
   search,
   settings,
   user: {
-    appName: 'Modrinth',
+    appName: 'Knossos',
     avatarPlaceholderImage: 'https://cdn.modrinth.com/placeholder.png',
   },
 }

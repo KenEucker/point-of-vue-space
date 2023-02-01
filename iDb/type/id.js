@@ -1,5 +1,5 @@
 module.exports = {
-  appName: 'Modrinth',
+  appName: 'Knossos',
   navSettingsLinks: [
     { label: 'General', path: 'settings', icon: 'settings' },
     { label: 'Tags', path: 'settings/tags', icon: 'categories' },
@@ -21,9 +21,9 @@ module.exports = {
   withheldWarning: {
     description1:
       ' is not viewable in search because it has been found to be in violation of one of',
-    split: "Modrinth's content rules",
+    split: "Knossos's content rules",
     splitLink: '/legal/rules',
-    description2: 'Modrinth makes no guarantees as to whether ',
+    description2: 'Knossos makes no guarantees as to whether ',
     description3: ' is safe for use in a multiplayer context.',
   },
   modpackInformation: {
@@ -43,7 +43,7 @@ module.exports = {
     meta: {
       description: {
         content1: ' - Download the Minecraft',
-        content2: 'on Modrinth',
+        content2: 'on Knossos',
       },
       'og:image': {
         content: 'https://cdn.modrinth.com/placeholder.png',

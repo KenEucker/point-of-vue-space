@@ -3,7 +3,7 @@ const { STAGING_ARIADNE_URL } = require('./constants')
 
 module.exports = {
   head: {
-    title: 'Modrinth',
+    title: 'Knossos',
   },
   meta: [
     {
@@ -17,27 +17,27 @@ module.exports = {
       hid: 'description',
       name: 'description',
       content:
-        'Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API.',
+        'Discover and publish projects with Knossos, a modern and user-friendly platform for content management.',
     },
     {
       hid: 'publisher',
       name: 'publisher',
-      content: 'Rinth, Inc.',
+      content: 'Knossos, Inc.',
     },
     {
       hid: 'og:title',
       name: 'og:title',
-      content: 'Modrinth',
+      content: 'Knossos',
     },
     {
       hid: 'apple-mobile-web-app-title',
       name: 'apple-mobile-web-app-title',
-      content: 'Modrinth',
+      content: 'Knossos',
     },
     {
       hid: 'theme-color',
       name: 'theme-color',
-      content: '#1bd96a',
+      content: '#4f0b8a',
     },
     {
       hid: 'color-scheme',
@@ -47,12 +47,12 @@ module.exports = {
     {
       hid: 'og:site_name',
       name: 'og:site_name',
-      content: 'Modrinth',
+      content: 'Knossos',
     },
     {
       hid: 'og:description',
       name: 'og:description',
-      content: 'An open source modding platform',
+      content: 'A modern platform for content management',
     },
     {
       hid: 'og:type',
@@ -62,12 +62,12 @@ module.exports = {
     {
       hid: 'og:url',
       name: 'og:url',
-      content: 'https://modrinth.com',
+      content: 'https://knossos.tech',
     },
     {
       hid: 'og:image',
       name: 'og:image',
-      content: 'https://cdn.modrinth.com/modrinth-new.png?',
+      content: 'https://cdn.knossos.tech/knossos-logo.png?',
     },
     {
       hid: 'twitter:card',
@@ -77,7 +77,7 @@ module.exports = {
     {
       hid: 'twitter:site',
       name: 'twitter:site',
-      content: '@modrinth',
+      content: '@knossos',
     },
   ],
   link: [
@@ -107,7 +107,7 @@ module.exports = {
       rel: 'search',
       type: 'application/opensearchdescription+xml',
       href: '/opensearch.xml',
-      title: 'Modrinth mods',
+      title: 'Knossos mods',
     },
   ],
   router: {
@@ -156,7 +156,7 @@ module.exports = {
     },
   },
   headers: {
-    userAgent: `Knossos generator (admin@omknossos.org)`,
+    userAgent: `Knossos generator (admin@knossos.tech)`,
   },
   build: {
     tags: [
@@ -169,7 +169,7 @@ module.exports = {
   },
   render: {
     headers: {
-      'Modrinth-Admin': process.env.ARIADNE_ADMIN_KEY ?? 'feedbeef',
+      'Knossos-Admin': process.env.ARIADNE_ADMIN_KEY ?? 'feedbeef',
     },
     viewPostPath: process.env.ARIADNE_URL ?? STAGING_ARIADNE_URL,
   },
