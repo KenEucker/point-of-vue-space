@@ -4,23 +4,25 @@
       <label for="project-description">
         <span class="label__title size-card-header">Description</span>
         <span class="label__description">
-          You can type an extended description of your mod here. This editor
-          supports
+          {{ iDb.description.description1 }}
           <a
             class="text-link"
-            href="https://guides.github.com/features/mastering-markdown/"
+            :href="iDb.description.splitLink"
             target="_blank"
             rel="noopener noreferrer"
-            >Markdown</a
-          >. HTML can also be used inside your description, not including
-          styles, scripts, and iframes (though YouTube iframes are allowed).
+            >{{ iDb.description.split }}</a
+          >
+          {{ iDb.description.description2 }}
           <span class="label__subdescription">
-            The description must clearly and honestly describe the purpose and
-            function of the project. See section 2.1 of the
-            <nuxt-link to="/legal/rules" class="text-link" target="_blank"
-              >Content Rules</nuxt-link
+            {{ iDb.subdescription.description1 }}
+
+            <nuxt-link
+              :to="iDb.subdescription.splitLink"
+              class="text-link"
+              target="_blank"
+              >{{ iDb.subdescription.split }}</nuxt-link
             >
-            for the full requirements.
+            {{ iDb.subdescription.description2 }}
           </span>
         </span>
       </label>
@@ -59,6 +61,8 @@
 import Chips from '~/components/ui/Chips'
 
 import SaveIcon from '~/assets/images/utils/save.svg?inline'
+
+import iDb from '~/iDb/type/settings'
 
 export default {
   components: {
@@ -100,6 +104,8 @@ export default {
   },
   data() {
     return {
+      iDb,
+
       description: '',
       bodyViewMode: 'source',
     }

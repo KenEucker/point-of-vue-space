@@ -17,63 +17,31 @@
         <h2>Project settings</h2>
         <NavStack>
           <NavStackItem
-            :link="`/${project.project_type}/${project.slug}/settings`"
-            label="General"
+            v-for="link in iDb.navSettingsLinks"
+            :key="link.path"
+            :link="`/${project.project_type}/${project.slug}/${link.path}`"
+            :label="link.label"
           >
-            <SettingsIcon />
+            <SettingsIcon v-if="link.icon === 'settings'" />
+            <CategoriesIcon v-if="link.icon === 'categories'" />
+            <DescriptionIcon v-if="link.icon === 'description'" />
+            <LicenseIcon v-if="link.icon === 'license'" />
+            <LinksIcon v-if="link.icon === 'links'" />
+            <UsersIcon v-if="link.icon === 'users'" />
           </NavStackItem>
-          <NavStackItem
-            :link="`/${project.project_type}/${project.slug}/settings/tags`"
-            label="Tags"
-          >
-            <CategoriesIcon />
-          </NavStackItem>
-          <NavStackItem
-            :link="`/${project.project_type}/${project.slug}/settings/description`"
-            label="Description"
-          >
-            <DescriptionIcon />
-          </NavStackItem>
-          <NavStackItem
-            :link="`/${project.project_type}/${project.slug}/settings/license`"
-            label="License"
-          >
-            <LicenseIcon />
-          </NavStackItem>
-          <NavStackItem
-            :link="`/${project.project_type}/${project.slug}/settings/links`"
-            label="Links"
-          >
-            <LinksIcon />
-          </NavStackItem>
-          <NavStackItem
-            :link="`/${project.project_type}/${project.slug}/settings/members`"
-            label="Members"
-          >
-            <UsersIcon />
-          </NavStackItem>
+
           <h3>Relevant pages</h3>
           <NavStackItem
-            :link="`/${project.project_type}/${project.slug}`"
-            label="View project"
-            chevron
+            v-for="link in iDb.navRelevantLinks"
+            :key="link.path"
+            :link="`/${project.project_type}/${project.slug}/${link.path}`"
+            :label="link.label"
           >
-            <EyeIcon />
+            <EyeIcon v-if="link.icon === 'eye'" />
+            <GalleryIcon v-if="link.icon === 'gallery'" />
+            <VersionIcon v-if="link.icon === 'versions'" />
           </NavStackItem>
-          <NavStackItem
-            :link="`/${project.project_type}/${project.slug}/gallery`"
-            label="Gallery"
-            chevron
-          >
-            <GalleryIcon />
-          </NavStackItem>
-          <NavStackItem
-            :link="`/${project.project_type}/${project.slug}/versions`"
-            label="Versions"
-            chevron
-          >
-            <VersionIcon />
-          </NavStackItem>
+
           <NavStackItem link="/dashboard/projects" label="All projects" chevron>
             <SettingsIcon />
           </NavStackItem>
@@ -632,11 +600,15 @@
           class="card warning"
           aria-label="Warning"
         >
-          {{ project.title }} is not viewable in search because it has been
-          found to be in violation of one of
-          <nuxt-link to="/legal/rules">Modrinth's content rules</nuxt-link>.
-          Modrinth makes no guarantees as to whether {{ project.title }} is safe
-          for use in a multiplayer context.
+          {{ project.title }}
+          {{ iDb.withheldWarning.description1 }}
+          <nuxt-link :to="iDb.withheldWarning.splitLink">{{
+            iDb.withheldWarning.split
+          }}</nuxt-link
+          >.
+          {{ iDb.withheldWarning.description2 }}
+          {{ project.title }}
+          {{ iDb.withheldWarning.description3 }}
         </div>
         <div
           v-if="project.status === 'archived'"
@@ -652,31 +624,34 @@
           aria-label="Warning"
         >
           To install {{ project.title }}, visit
-          <a
-            href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/"
-            :target="$external()"
+          <a :href="iDb.modpackInformation.docsLink" :target="$external()"
             >our documentation</a
           >
-          which provides instructions on using
+          {{ iDb.modpackInformation.description1 }}
           <a
-            href="https://atlauncher.com/about"
+            v-if="iDb.modpackInformation.split2"
+            :href="iDb.modpackInformation.split2Link"
             :target="$external()"
             rel="noopener noreferrer nofollow"
           >
-            ATLauncher</a
-          >,
+            {{ iDb.modpackInformation.split2 }}</a
+          >
+          {{ iDb.modpackInformation.description2 }}
           <a
-            href="https://multimc.org/"
+            v-if="iDb.modpackInformation.split3"
+            :href="iDb.modpackInformation.split3Link"
             :target="$external()"
             rel="noopener noreferrer nofollow"
-            >MultiMC</a
-          >, and
+            >{{ iDb.modpackInformation.split3 }}</a
+          >
+          {{ iDb.modpackInformation.description3 }}
           <a
-            href="https://prismlauncher.org"
+            v-if="iDb.modpackInformation.split4"
+            :href="iDb.modpackInformation.split4Link"
             :target="$external()"
             rel="noopener noreferrer nofollow"
           >
-            Prism Launcher</a
+            {{ iDb.modpackInformation.split4 }}</a
           >.
         </div>
         <Advertisement
@@ -783,6 +758,8 @@ import VersionIcon from '~/assets/images/utils/version.svg?inline'
 import CrossIcon from '~/assets/images/utils/x.svg?inline'
 import EditIcon from '~/assets/images/utils/edit.svg?inline'
 import ModerationIcon from '~/assets/images/sidebar/admin.svg?inline'
+
+import iDb from '~/iDb/type/id'
 
 export default {
   components: {
@@ -965,6 +942,8 @@ export default {
   },
   data() {
     return {
+      iDb,
+
       licenseText: '',
       isSettings: false,
       routeName: '',

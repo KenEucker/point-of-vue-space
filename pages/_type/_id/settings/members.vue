@@ -9,8 +9,7 @@
       <span class="label">
         <span class="label__title">Invite a member</span>
         <span class="label__description">
-          Enter the Modrinth username of the person you'd like to invite to be a
-          member of this project.
+          {{ iDb.members.description }}
         </span>
       </span>
       <div
@@ -86,7 +85,7 @@
             "
           />
         </div>
-        <div class="adjacent-input">
+        <div v-if="iDb.members.monetization.enabled" class="adjacent-input">
           <label
             :for="`member-${allTeamMembers[index].user.username}-monetization-weight`"
           >
@@ -260,6 +259,8 @@ import UserPlusIcon from '~/assets/images/utils/user-plus.svg?inline'
 import UserRemoveIcon from '~/assets/images/utils/user-x.svg?inline'
 import Avatar from '~/components/ui/Avatar'
 
+import iDb from '~/iDb/type/settings'
+
 export default {
   components: {
     Avatar,
@@ -293,6 +294,8 @@ export default {
   },
   data() {
     return {
+      iDb,
+
       currentUsername: '',
       openTeamMembers: [],
       allTeamMembers: [],

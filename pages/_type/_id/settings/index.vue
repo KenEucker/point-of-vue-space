@@ -66,7 +66,9 @@
         <span class="label__title">URL</span>
       </label>
       <div class="text-input-wrapper">
-        <div class="text-input-wrapper__before">https://modrinth.com/mod/</div>
+        <div class="text-input-wrapper__before">
+          {{ iDb.defaultProjectUrl }}
+        </div>
         <input
           id="project-slug"
           v-model="slug"
@@ -96,14 +98,13 @@
           project.project_type !== 'datapack'
         "
       >
-        <div class="adjacent-input">
+        <div v-if="iDb.clientSideField.enabled" class="adjacent-input">
           <label for="project-env-client">
             <span class="label__title">Client-side</span>
             <span class="label__description">
-              Select based on if the
-              {{ $formatProjectType(project.project_type).toLowerCase() }} has
-              functionality on the client side. Just because a mod works in
-              Singleplayer doesn't mean it has actual client-side functionality.
+              {{ iDb.clientSideField.description1 }}
+              {{ $formatProjectType(project.project_type).toLowerCase() }}
+              {{ iDb.clientSideField.description2 }}
             </span>
           </label>
           <Multiselect
@@ -121,14 +122,13 @@
             :disabled="!hasPermission"
           />
         </div>
-        <div class="adjacent-input">
+        <div v-if="iDb.serverSideField.enabled" class="adjacent-input">
           <label for="project-env-server">
             <span class="label__title">Server-side</span>
             <span class="label__description">
-              Select based on if the
-              {{ $formatProjectType(project.project_type).toLowerCase() }} has
-              functionality on the <strong>logical</strong> server. Remember
-              that Singleplayer contains an integrated server.
+              {{ iDb.serverSideField.description2 }}
+              {{ $formatProjectType(project.project_type).toLowerCase() }}
+              {{ iDb.serverSideField.description2 }}
             </span>
           </label>
           <Multiselect
@@ -151,10 +151,7 @@
         <label for="project-visibility">
           <span class="label__title">Visibility</span>
           <span class="label__description">
-            Set the visibility of your project. Listed and archived projects are
-            visible in search. Unlisted projects are published, but not visible
-            in search or on user profiles. Private projects are only accessible
-            by members of the project.
+            {{ iDb.projectVisibility }}
           </span>
         </label>
         <Multiselect
@@ -190,8 +187,7 @@
         </h3>
       </div>
       <p>
-        Removes your project from Modrinth's servers and search. Clicking on
-        this will delete your project, so be extra careful!
+        {{ iDb.projectDelete }}
       </p>
       <button
         type="button"
@@ -215,6 +211,8 @@ import FileInput from '~/components/ui/FileInput'
 import UploadIcon from '~/assets/images/utils/upload.svg?inline'
 import SaveIcon from '~/assets/images/utils/save.svg?inline'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
+
+import iDb from '~/iDb/type/settings'
 
 export default {
   components: {
@@ -281,6 +279,8 @@ export default {
   },
   data() {
     return {
+      iDb,
+
       name: '',
       slug: '',
       summary: '',
