@@ -1,12 +1,10 @@
 <template>
   <div class="creator-section">
     <div class="section-header">
-      <div class="section-label blue">For Creators</div>
-      <h2 class="section-tagline">Share your content with the world</h2>
-      <p class="section-description">
-        Give an online home to your creations and reach a massive audience of
-        dedicated players
-      </p>
+      <div class="section-label blue">{{ iDb.creators.sectionHeading }}</div>
+      <h2 class="section-tagline">{{ iDb.creators.sectionTagline }}</h2>
+      <p class="section-description">{{ iDb.creators.sectionDescription }}</p>
+
       <Features />
     </div>
   </div>
@@ -14,13 +12,16 @@
 
 <script>
 import Features from './Features'
+import iDb from '~/iDb/components/pages'
 
 export default {
   components: {
     Features,
   },
   data() {
-    return {}
+    return {
+      iDb,
+    }
   },
   fetch() {},
   methods: {},

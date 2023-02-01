@@ -36,19 +36,15 @@
     <div class="projects-transition"></div>
     <div class="users-section">
       <div class="section-header">
-        <div class="section-label green">For Players</div>
-        <h2 class="section-tagline">Discover over 5,000 creations</h2>
-        <p class="section-description">
-          From magical biomes to cursed dungeons, you can be sure to find
-          content to bring your gameplay to the next level.
-        </p>
+        <div class="section-label green">{{ iDb.users.sectionHeading }}</div>
+        <h2 class="section-tagline">{{ iDb.users.sectionTagline }}</h2>
+        <p class="section-description">{{ iDb.users.sectionDescription }}</p>
       </div>
-      <div class="feature-blob">
+      <div v-if="iDb.find.enabled" class="feature-blob">
         <div class="blob-text">
-          <h3>Find what you want, quickly and easily</h3>
+          <h3>{{ iDb.find.sectionHeading }}</h3>
           <p>
-            Modrinth’s lightning-fast search and powerful filters let you find
-            what you want as you type.
+            {{ iDb.find.sectionDescription }}
           </p>
         </div>
         <div class="blob-demonstration gradient-border bigger">
@@ -117,12 +113,11 @@
           </div>
         </div>
       </div>
-      <div class="feature-blob reverse">
+      <div v-if="iDb.follow.enabled" class="feature-blob reverse">
         <div class="blob-text">
-          <h3>Follow projects you love</h3>
+          <h3>{{ iDb.follow.sectionHeading }}</h3>
           <p>
-            Get notified every time your favorite projects update and stay in
-            the loop
+            {{ iDb.follow.sectionDescription }}
           </p>
         </div>
         <div class="blob-demonstration gradient-border">
@@ -177,13 +172,11 @@
           </div>
         </div>
       </div>
-      <div class="feature-blob">
+      <div v-if="iDb.loaders.enabled" class="feature-blob">
         <div class="blob-text">
-          <h3>Play with your favorite launcher</h3>
+          <h3>{{ iDb.loaders.sectionHeading }}</h3>
           <p>
-            Modrinth's open-source API lets launchers add deep integration with
-            Modrinth. We're already supported by some of the most popular
-            launchers like ATLauncher, MultiMC, and Prism Launcher.
+            {{ iDb.loaders.sectionDescription }}
           </p>
         </div>
         <div class="blob-demonstration gradient-border">
@@ -246,6 +239,8 @@ import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
 import ProjectCard from '~/components/ui/ProjectCard'
 import SearchIcon from '~/assets/images/utils/search.svg?inline'
 
+import iDb from '~/iDb/components/pages'
+
 export default {
   components: {
     Avatar,
@@ -256,6 +251,8 @@ export default {
   },
   data() {
     return {
+      iDb,
+
       searchQuery: 'flowers',
       sortType: 'relevance',
       searchProjects: [],

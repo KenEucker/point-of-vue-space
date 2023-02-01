@@ -129,7 +129,7 @@ export default {
   props: {
     id: {
       type: String,
-      default: 'modrinth-0',
+      default: 'knossos-0',
     },
     type: {
       type: String,

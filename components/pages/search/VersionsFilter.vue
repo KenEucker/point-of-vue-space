@@ -43,7 +43,7 @@ import Multiselect from 'vue-multiselect'
 import Checkbox from '~/components/ui/Checkbox'
 
 export default {
-  name: 'ProxiesFilter',
+  name: 'VersionsFilter',
   components: {
     Multiselect,
     Checkbox,

@@ -1,12 +1,9 @@
 <template>
   <div class="users-section">
     <div class="section-header">
-      <div class="section-label green">For Players</div>
-      <h2 class="section-tagline">Discover over 5,000 creations</h2>
-      <p class="section-description">
-        From magical biomes to cursed dungeons, you can be sure to find content
-        to bring your gameplay to the next level.
-      </p>
+      <div class="section-label green">{{ iDb.find.sectionHeading }}</div>
+      <h2 class="section-tagline">{{ iDb.find.sectionTagline }}</h2>
+      <p class="section-description">{{ iDb.find.sectionDescription }}</p>
     </div>
     <div class="feature-blob">
       <div class="blob-text">
@@ -208,6 +205,8 @@ import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
 import ProjectCard from '~/components/ui/ProjectCard'
 import Avatar from '~/components/ui/Avatar'
 
+import iDb from '~/iDb/components/pages'
+
 export default {
   components: {
     Avatar,
@@ -246,6 +245,8 @@ export default {
   },
   data() {
     return {
+      iDb,
+
       projects: [],
       notifications: [],
       searchQuery: 'flowers',

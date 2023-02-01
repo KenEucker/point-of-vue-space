@@ -1404,14 +1404,16 @@ export default {
         this.$emit('update:featuredVersions', featuredVersions)
         this.$emit('update:dependencies', dependencies)
 
-        await this.$router.replace(
-          `/${this.project.project_type}/${
-            this.project.slug ? this.project.slug : this.project.id
-          }/version/${encodeURI(
-            newEditedVersions.find((x) => x.id === this.version.id)
-              .displayUrlEnding
-          )}`
-        )
+        await this.$router
+          .replace(
+            `/${this.project.project_type}/${
+              this.project.slug ? this.project.slug : this.project.id
+            }/version/${encodeURI(
+              newEditedVersions.find((x) => x.id === this.version.id)
+                .displayUrlEnding
+            )}`
+          )
+          .catch(() => {})
       } catch (err) {
         this.$notify({
           group: 'main',
@@ -1532,11 +1534,13 @@ export default {
       this.$emit('update:featuredVersions', featuredVersions)
       this.$emit('update:dependencies', dependencies)
 
-      await this.$router.push(
-        `/${this.project.project_type}/${
-          this.project.slug ? this.project.slug : this.project.project_id
-        }/version/${data.id}`
-      )
+      await this.$router
+        .push(
+          `/${this.project.project_type}/${
+            this.project.slug ? this.project.slug : this.project.project_id
+          }/version/${data.id}`
+        )
+        .catch(() => {})
     },
     async deleteVersion() {
       this.$nuxt.$loading.start()
@@ -1546,9 +1550,9 @@ export default {
         this.$defaultHeaders()
       )
 
-      await this.$router.replace(
-        `/${this.project.project_type}/${this.project.id}/versions`
-      )
+      await this.$router
+        .replace(`/${this.project.project_type}/${this.project.id}/versions`)
+        .catch(() => {})
       this.$nuxt.$loading.finish()
     },
     async createDataPackVersion() {

@@ -100,12 +100,9 @@
     <div class="overlay">
       <h2 class="main-header">
         Read more about <br />
-        <strong class="main-header-strong">Modrinth</strong>
+        <strong class="main-header-strong">{{ iDb.banner.appName }}</strong>
       </h2>
-      <a
-        href="https://blog.modrinth.com/subscribe?utm_source=website&utm_source=homepage&utm_campaign=newsletter"
-        class="iconified-button brand-button"
-      >
+      <a :href="iDb.banner.blogLink" class="iconified-button brand-button">
         Visit the blog
       </a>
     </div>
@@ -113,10 +110,14 @@
 </template>
 
 <script>
+import iDb from '~/iDb/components/pages'
+
 export default {
   components: {},
   data() {
-    return {}
+    return {
+      iDb,
+    }
   },
   fetch() {},
   methods: {},
