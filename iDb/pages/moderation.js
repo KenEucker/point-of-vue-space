@@ -51,4 +51,5 @@ module.exports = {
   approvedStatuses: ['approved', 'archived', 'unlisted', 'private'],
   rejectedStatuses: ['rejected', 'withheld'],
   staffRoles: ['moderator', 'admin'],
+  appName: 'Modrinth',
 }

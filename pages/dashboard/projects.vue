@@ -330,6 +330,8 @@ import CrossIcon from '~/assets/images/utils/x.svg?inline'
 import EditIcon from '~/assets/images/utils/edit.svg?inline'
 import SaveIcon from '~/assets/images/utils/save.svg?inline'
 
+import iDb from '~/iDb/pages/dashboard'
+
 export default {
   components: {
     Avatar,
@@ -380,7 +382,7 @@ export default {
     this.updateSort()
   },
   head: {
-    title: 'Projects - Modrinth',
+    title: 'Projects - ' + iDb.appName,
   },
   created() {
     this.UPLOAD_VERSION = 1 << 0

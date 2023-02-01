@@ -141,6 +141,8 @@ import NavStack from '~/components/ui/NavStack'
 import NavStackItem from '~/components/ui/NavStackItem'
 import ModalModeration from '~/components/ui/ModalModeration'
 
+import iDb from '~/iDb/pages/moderation'
+
 export default {
   name: 'Moderation',
   components: {
@@ -238,12 +240,14 @@ export default {
   },
   data() {
     return {
+      iDb,
+
       currentProject: null,
       currentStatus: null,
     }
   },
   head: {
-    title: 'Moderation - Modrinth',
+    title: 'Moderation - ' + iDb.appName,
   },
   computed: {
     moderationTypes() {

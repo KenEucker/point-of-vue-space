@@ -284,6 +284,8 @@ import NavRow from '~/components/ui/NavRow'
 import CopyCode from '~/components/ui/CopyCode'
 import Avatar from '~/components/ui/Avatar'
 
+import iDb from '~/iDb/pages'
+
 export default {
   auth: false,
   components: {
@@ -386,6 +388,8 @@ export default {
   },
   data() {
     return {
+      iDb,
+
       isEditing: false,
       icon: null,
       previewImage: null,
@@ -393,11 +397,11 @@ export default {
   },
   head() {
     const description = this.user.bio
-      ? `${this.user.bio} - Download ${this.user.username}'s projects on Modrinth`
-      : `Download ${this.user.username}'s projects on Modrinth`
+      ? `${this.user.bio} - Download ${this.user.username}'s projects on ${iDb.user.appName}`
+      : `Download ${this.user.username}'s projects on ${iDb.user.appName}`
 
     return {
-      title: this.user.username + ' - Modrinth',
+      title: this.user.username + ' - ' + iDb.user.appName,
       meta: [
         {
           hid: 'og:type',
@@ -422,13 +426,12 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content: `${this.user.bio} - Download ${this.user.username}'s projects on Modrinth`,
+          content: `${this.user.bio} - Download ${this.user.username}'s projects on ${iDb.user.appName}`,
         },
         {
           hid: 'og:image',
           name: 'og:image',
-          content:
-            this.user.avatar_url || 'https://cdn.modrinth.com/placeholder.png',
+          content: this.user.avatar_url || iDb.user.avatarPlaceholderImage,
         },
       ],
     }

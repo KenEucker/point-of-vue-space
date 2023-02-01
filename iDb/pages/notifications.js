@@ -7,4 +7,5 @@ module.exports = {
       chevron: true,
     },
   ],
+  appName: 'Modrinth',
 }

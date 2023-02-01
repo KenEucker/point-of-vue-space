@@ -11,9 +11,9 @@
       <h2 class="title">Enrollment</h2>
       <template v-if="!enrolled && !$auth.user.email">
         <p v-if="!enrolled">
-          You are not currently enrolled in Modrinth's Creator Monetization
-          Program. In order to enroll, you must first add a valid email address
-          to your account.
+          You are not currently enrolled in {{ iDb.appName }}'s Creator
+          Monetization Program. In order to enroll, you must first add a valid
+          email address to your account.
         </p>
         <NuxtLink class="iconified-button" to="/settings/account">
           <SettingsIcon /> Visit account settings
@@ -21,9 +21,9 @@
       </template>
       <template v-else-if="editing || !enrolled">
         <p v-if="!enrolled">
-          You are not currently enrolled in Modrinth's Creator Monetization
-          Program. Setup a method of receiving payments below to enable
-          monetization.
+          You are not currently enrolled in {{ iDb.appName }}'s Creator
+          Monetization Program. Setup a method of receiving payments below to
+          enable monetization.
         </p>
         <div class="enroll universal-body">
           <Chips
@@ -106,6 +106,8 @@ import EditIcon from '~/assets/images/utils/edit.svg?inline'
 import ChartIcon from '~/assets/images/utils/chart.svg?inline'
 import SettingsIcon from '~/assets/images/utils/settings.svg?inline'
 
+import iDb from '~/iDb/pages/settings'
+
 export default {
   components: {
     Multiselect,
@@ -118,6 +120,8 @@ export default {
   },
   data() {
     return {
+      iDb,
+
       editing: false,
       enrolled:
         this.$auth.user.payout_data.payout_wallet &&
@@ -132,7 +136,7 @@ export default {
     }
   },
   head: {
-    title: 'Monetization settings - Modrinth',
+    title: 'Monetization settings - ' + iDb.appName,
   },
   methods: {
     getAccountTypes() {

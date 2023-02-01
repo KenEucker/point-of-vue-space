@@ -14,8 +14,16 @@
             >{{ (registeredSkipLink || {}).text }}</a
           >
         </section>
-        <section class="logo column" role="presentation">
-          <NuxtLink class="button-base" to="/" aria-label="Modrinth home page">
+        <section
+          v-if="iDb.brandingLink"
+          class="logo column"
+          role="presentation"
+        >
+          <NuxtLink
+            class="button-base"
+            :to="iDb.brandingLink.to"
+            :aria-label="iDb.brandingLink.aria"
+          >
             <BrandTextLogo aria-hidden="true" class="text-logo" />
           </NuxtLink>
         </section>
@@ -269,7 +277,11 @@
       <Nuxt id="main" />
     </main>
     <footer>
-      <div class="logo-info" role="region" aria-label="Modrinth information">
+      <div
+        class="logo-info"
+        role="region"
+        :aria-label="iDb.footerBranding.aria"
+      >
         <BrandTextLogo aria-hidden="true" class="text-logo" />
         <p>
           {{ iDb.footerBranding.description1 }}
@@ -434,9 +446,9 @@ export default {
       iDb,
 
       isDropdownOpen: false,
-      owner: process.env.owner || 'modrinth',
-      slug: process.env.slug || 'knossos',
-      branch: process.env.branch || 'master',
+      owner: process.env.owner || 'modrinth', // As always, thank you
+      slug: process.env.slug || 'knossos', // The real deal
+      branch: process.env.branch || 'main',
       hash: process.env.hash || 'unknown',
       isMobileMenuOpen: false,
       isBrowseMenuOpen: false,

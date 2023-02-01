@@ -13,8 +13,6 @@ import Users from '~/components/pages/index/Users'
 import Landing from '~/components/pages/index/Landing'
 import Creators from '~/components/pages/index/Creators'
 
-import iDb from '~/iDb'
-
 export default {
   components: {
     Landing,
@@ -23,11 +21,6 @@ export default {
     Users,
   },
   auth: false,
-  data() {
-    return {
-      iDb,
-    }
-  },
 }
 </script>
 

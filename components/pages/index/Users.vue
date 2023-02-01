@@ -172,6 +172,7 @@
           </div>
         </div>
       </div>
+      <!-- Modrinth specific code -->
       <div v-if="iDb.loaders.enabled" class="feature-blob">
         <div class="blob-text">
           <h3>{{ iDb.loaders.sectionHeading }}</h3>

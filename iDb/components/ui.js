@@ -1,4 +1,20 @@
 module.exports = {
+  badge: {
+    logoText: 'Modrinth Team',
+  },
+  modal: { projectBaseUrl: 'https://modrinth.com/' },
+  pubishing: {
+    checklist: {
+      addLinks: {
+        description:
+          'Add any relevant links targeted outside of Modrinth, such as sources, issues, or a Discord invite.',
+      },
+      resubmitForReview: {
+        description:
+          "Modrinth's staff. In most cases, you can resubmit for review after addressing the staff's message.",
+      },
+    },
+  },
   report: {
     description1:
       'Modding should be safe for everyone, so we take abuse and malicious intent seriously at Modrinth. We want to hear about harmful content on the site that violates our',

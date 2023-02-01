@@ -1,4 +1,8 @@
 module.exports = {
+  brandingLink: {
+    to: '/',
+    aria: 'Modrinth home page',
+  },
   navLinks: [
     {
       label: 'Mods',
@@ -26,6 +30,7 @@ module.exports = {
     },
   ],
   footerBranding: {
+    aria: 'Modrinth information',
     description1: 'Modrinth is',
     split1: 'open source',
     split1Link: 'https://github.com/modrinth',

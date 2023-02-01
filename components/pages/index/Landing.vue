@@ -1,8 +1,8 @@
 <template>
   <div class="landing-hero">
-    <ModrinthIcon />
+    <LogoIcon />
     <h1 class="main-header">
-      {{ iDb.pages.index.mainHeader }}
+      {{ iDb.index.mainHeader }}
       <div class="animate-strong">
         <span>
           <strong
@@ -13,61 +13,61 @@
             {{ projectType.display }}s <br />
           </strong>
           <strong class="main-header-strong">{{
-            iDb.pages.index.mainHeaderMod
+            iDb.index.mainHeaderMod
           }}</strong>
         </span>
       </div>
     </h1>
     <h2>
-      {{ iDb.pages.index.secondaryHeader }}
+      {{ iDb.index.secondaryHeader }}
     </h2>
     <div class="button-group">
       <nuxt-link
-        :to="iDb.pages.index.buttons.discover.to"
+        :to="iDb.index.buttons.discover.to"
         class="iconified-button"
         :class="`${
-          iDb.pages.index.buttons.discover.class
-            ? iDb.pages.index.buttons.discover.class
+          iDb.index.buttons.discover.class
+            ? iDb.index.buttons.discover.class
             : ' outline-button'
         }`"
       >
-        {{ iDb.pages.index.buttons.discover.label }}
+        {{ iDb.index.buttons.discover.label }}
       </nuxt-link>
       <a
         v-if="!$auth.user"
         :href="authUrl"
         class="iconified-button"
         :class="`${
-          iDb.pages.index.buttons.signup.class
-            ? iDb.pages.index.buttons.signup.class
+          iDb.index.buttons.signup.class
+            ? iDb.index.buttons.signup.class
             : ' outline-button'
         }`"
       >
-        {{ iDb.pages.index.buttons.signup.label }}
+        {{ iDb.index.buttons.signup.label }}
       </a>
       <nuxt-link
         v-else
         to="/dashboard/projects"
         class="iconified-button"
         :class="`${
-          iDb.pages.index.buttons.dashboard.class
-            ? iDb.pages.index.buttons.dashboard.class
+          iDb.index.buttons.dashboard.class
+            ? iDb.index.buttons.dashboard.class
             : ' outline-button'
         }`"
       >
-        {{ iDb.pages.index.buttons.dashboard.label }}
+        {{ iDb.index.buttons.dashboard.label }}
       </nuxt-link>
     </div>
   </div>
 </template>
 
 <script>
-import ModrinthIcon from '~/assets/images/logo.svg?inline'
-import iDb from '~/iDb'
+import LogoIcon from '~/assets/images/logo.svg?inline'
+import iDb from '~/iDb/pages'
 
 export default {
   components: {
-    ModrinthIcon,
+    LogoIcon,
   },
   data() {
     return {

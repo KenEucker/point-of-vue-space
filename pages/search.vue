@@ -72,7 +72,7 @@
       </section>
     </aside>
     <section class="normal-page__content">
-      <ModrinthNotice
+      <ProjectKnotice
         :notice="iDb.modpacksAlphaNotice"
         :project-type="projectType.id"
       />
@@ -170,7 +170,7 @@ import LoadersFilter from '~/components/pages/search/LoadersFilter'
 import ProxiesFilter from '~/components/pages/search/ProxiesFilter'
 import EnvironmentsFilter from '~/components/pages/search/EnvironmentsFilter'
 import VersionsFilter from '~/components/pages/search/VersionsFilter'
-import ModrinthNotice from '~/components/pages/search/ModrinthNotice'
+import ProjectKnotice from '~/components/pages/search/ProjectKnotice'
 import SearchControls from '~/components/pages/search/SearchControls'
 
 import ProjectCard from '~/components/ui/ProjectCard'
@@ -191,7 +191,7 @@ export default {
     EnvironmentsFilter,
     VersionsFilter,
     SearchControls,
-    ModrinthNotice,
+    ProjectKnotice,
     ProjectCard,
     Pagination,
     ClearIcon,
@@ -303,7 +303,7 @@ export default {
     const name = this.$route.name.substring(0, this.$route.name.length - 1)
 
     return {
-      title: `Search ${this.$formatProjectType(name)}s - Modrinth`,
+      title: `Search ${this.$formatProjectType(name)}s - ${iDb.appName}`,
       meta: [
         {
           hid: 'apple-mobile-web-app-title',
@@ -318,7 +318,7 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content: `Search and browse thousands of Minecraft ${name}s on Modrinth with instant, accurate search results. Our filters help you quickly find the best Minecraft ${name}s.\n`,
+          content: `${iDb.head.meta.description.content1} ${name} ${iDb.head.meta.description.content2} ${name}s.\n`,
         },
       ],
     }

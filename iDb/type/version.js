@@ -1,4 +1,5 @@
 module.exports = {
+  appName: 'Modrinth',
   platformVersionHeading: 'Game versions',
   packageMod: {
     enabled: true,

@@ -42,6 +42,8 @@ import ProjectCard from '~/components/ui/ProjectCard'
 import HeartIcon from '~/assets/images/utils/heart.svg?inline'
 import FollowIllustration from '~/assets/images/illustrations/follow_illustration.svg?inline'
 
+import iDb from '~/iDb/pages/settings'
+
 export default {
   components: {
     ProjectCard,
@@ -52,7 +54,7 @@ export default {
     await this.$store.dispatch('user/fetchFollows')
   },
   head: {
-    title: 'Followed projects - Modrinth',
+    title: 'Followed projects - ' + iDb.appName,
   },
 }
 </script>

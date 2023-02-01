@@ -1,4 +1,9 @@
-const { STAGING_API_URL } = require('./constants')
+const {
+  STAGING_API_URL,
+  STAGING_URL,
+  PRODUCTION_URL,
+  DEV_URL,
+} = require('./constants')
 
 const getApiUrl = () => process.env.BROWSER_BASE_URL ?? STAGING_API_URL
 
@@ -13,12 +18,12 @@ const getDomain = () => {
     } else if (process.env.VERCEL_URL) {
       return `https://${process.env.VERCEL_URL}`
     } else if (getApiUrl() === STAGING_API_URL) {
-      return 'https://staging.modrinth.com'
+      return STAGING_URL
     } else {
-      return 'https://modrinth.com'
+      return PRODUCTION_URL
     }
   } else {
-    return 'http://localhost:3000'
+    return DEV_URL
   }
 }
 

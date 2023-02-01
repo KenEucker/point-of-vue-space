@@ -1,4 +1,5 @@
 module.exports = {
+  appName: 'Modrinth',
   navSettingsLinks: [
     { label: 'General', path: 'settings', icon: 'settings' },
     { label: 'Tags', path: 'settings/tags', icon: 'categories' },
@@ -38,4 +39,15 @@ module.exports = {
     split4Link: 'https://prismlauncher.org',
   },
   galleryImagePlaceholder: 'https://cdn.modrinth.com/placeholder-banner.svg',
+  head: {
+    meta: {
+      description: {
+        content1: ' - Download the Minecraft',
+        content2: 'on Modrinth',
+      },
+      'og:image': {
+        content: 'https://cdn.modrinth.com/placeholder.png',
+      },
+    },
+  },
 }
