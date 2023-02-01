@@ -33,7 +33,7 @@
                 ? previewImage
                 : project.gallery[editIndex] && project.gallery[editIndex].url
                 ? project.gallery[editIndex].url
-                : 'https://cdn.modrinth.com/placeholder-banner.svg'
+                : iDb.galleryImagePlaceholder
             "
             alt="gallery-preview"
           />

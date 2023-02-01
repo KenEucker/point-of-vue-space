@@ -5,33 +5,28 @@
         <label for="license-multiselect">
           <span class="label__title size-card-header">License</span>
           <span class="label__description">
-            It is very important to choose a proper license for your
-            {{ $formatProjectType(project.project_type).toLowerCase() }}. You
-            may choose one from our list or provide a custom license. You may
-            also provide a custom URL to your chosen license; otherwise, the
-            license text will be displayed.
+            {{ iDb.license.description1 }}
+            {{ $formatProjectType(project.project_type).toLowerCase() }}
+            {{ iDb.license.description2 }}
             <span
               v-if="license && license.friendly === 'Custom'"
               class="label__subdescription"
             >
-              Enter a valid
+              {{ iDb.license.preSplit }}
               <a
-                href="https://spdx.org/licenses/"
+                :href="iDb.license.splitLink"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="text-link"
               >
-                SPDX license identifier</a
+                {{ iDb.split }}</a
               >
-              in the marked area. If your license does not have a SPDX
-              identifier (for example, if you created the license yourself or if
-              the license is Minecraft-specific), simply check the box and enter
-              the name of the license instead.
+              {{ iDb.license.postSplit }}
             </span>
             <span class="label__subdescription">
               Confused? See our
               <a
-                href="https://blog.modrinth.com/licensing-guide/"
+                :href="iDb.license.licensingGuideLink"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="text-link"
@@ -112,6 +107,8 @@ import Multiselect from 'vue-multiselect'
 import Checkbox from '~/components/ui/Checkbox'
 import SaveIcon from '~/assets/images/utils/save.svg?inline'
 
+import iDb from '~/iDb/type/settings'
+
 export default {
   components: {
     Multiselect,
@@ -147,6 +144,8 @@ export default {
   },
   data() {
     return {
+      iDb,
+
       licenseUrl: '',
       license: { friendly: '', short: '', requiresOnlyOrLater: false },
       allowOrLater: false,

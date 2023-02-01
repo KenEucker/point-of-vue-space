@@ -14,9 +14,7 @@ I have a rough plan of how I want to accomplish this task...
 
 [ ] Move the idiot database to a CMS based content repository
 
-[ ] Add tailwind and replace all styles with tailwind classes
-
-[ ] Move all colors to a theme within tailwind
+[ ] Move all colors to a singular theme
 
 [ ] Make the theme editable in the CMS
 

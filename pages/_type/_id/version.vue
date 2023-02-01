@@ -16,22 +16,22 @@
       item-type="version"
     />
     <Modal
-      v-if="$auth.user && currentMember"
+      v-if="$auth.user && currentMember && iDb.packageMod.enabled"
       ref="modal_package_mod"
       header="Package data pack"
     >
       <div class="modal-package-mod universal-labels">
         <div class="markdown-body">
           <p>
-            Package your data pack as a mod. This will create a new version with
-            support for the selected mod loaders. You will be redirected to the
-            new version and can edit it to your liking.
+            {{ iDb.packageMod.description }}
           </p>
         </div>
         <label for="package-mod-loaders">
-          <span class="label__title">Mod loaders</span>
+          <span class="label__title">
+            {{ iDb.packageMod.loadersHeading }}
+          </span>
           <span class="label__description">
-            The mod loaders you would like to package your data pack for.
+            {{ iDb.packageMod.loadersDescription }}
           </span>
         </label>
         <multiselect
@@ -91,13 +91,18 @@
           Auto-featured
         </div>
       </div>
-      <div v-if="fieldErrors && showKnownErrors" class="known-errors">
+      <div
+        v-if="
+          fieldErrors && showKnownErrors && iDb.enforcePlatformVersion.enabled
+        "
+        class="known-errors"
+      >
         <ul>
           <li v-if="version.version_number === ''">
-            Your version must have a version number.
+            {{ iDb.enforcePlatformVersion.versionNumber }}
           </li>
           <li v-if="version.game_versions.length === 0">
-            Your version must have the supported Minecraft versions selected.
+            {{ iDb.enforcePlatformVersion.versionSupport }}
           </li>
           <li
             v-if="
@@ -106,7 +111,7 @@
               !replaceFile
             "
           >
-            Your version must have a file uploaded.
+            {{ iDb.enforcePlatformVersion.versionFile }}
           </li>
           <li
             v-if="
@@ -114,7 +119,7 @@
               project.project_type !== 'resourcepack'
             "
           >
-            Your version must have the supported mod loaders selected.
+            {{ iDb.enforcePlatformVersion.versionLoaders }}
           </li>
         </ul>
       </div>
@@ -219,6 +224,7 @@
         <button
           v-if="
             currentMember &&
+            iDb.packageMod.enabled &&
             version.loaders.some((x) =>
               $tag.loaderData.dataPackLoaders.includes(x)
             )
@@ -227,7 +233,7 @@
           @click="$refs.modal_package_mod.show()"
         >
           <BoxIcon aria-hidden="true" />
-          Package as mod
+          {{ iDb.packageMod.buttonText }}
         </button>
         <button
           v-if="currentMember"
@@ -288,8 +294,9 @@
     </div>
     <div
       v-if="
-        version.dependencies.length > 0 ||
-        (isEditing && project.project_type !== 'modpack')
+        iDb.supportDependencies.enabled &&
+        (version.dependencies.length > 0 ||
+          (isEditing && project.project_type !== 'modpack'))
       "
       class="version-page__dependencies universal-card"
     >
@@ -603,7 +610,7 @@
         </div>
       </template>
     </div>
-    <div class="version-page__metadata">
+    <div v-if="iDb.supportMetadata.enabled" class="version-page__metadata">
       <div class="universal-card full-width-inputs">
         <h3>Metadata</h3>
         <div>
