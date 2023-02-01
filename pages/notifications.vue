@@ -8,17 +8,19 @@
           <NavStackItem
             v-for="type in notificationTypes"
             :key="type"
-            :link="'?type=' + type"
+            :link="`?type=${type}`"
             :label="NOTIFICATION_TYPES[type]"
           >
           </NavStackItem>
           <h3>Manage</h3>
           <NavStackItem
-            link="/settings/follows"
-            label="Followed projects"
-            chevron
+            v-for="link in iDb.navLinks"
+            :key="link.path"
+            :link="`/${link.path}`"
+            :label="link.label"
+            :chevron="link.chevron"
           >
-            <SettingsIcon />
+            <SettingsIcon v-if="link.icon === 'settings'" />
           </NavStackItem>
           <NavStackItem
             v-if="$user.notifications.length > 0"
@@ -101,6 +103,9 @@ import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg?inline'
 import NavStack from '~/components/ui/NavStack'
 import NavStackItem from '~/components/ui/NavStackItem'
+
+import iDb from '~/iDb/pages/notifications'
+
 export default {
   name: 'Notifications',
   components: {
@@ -110,6 +115,11 @@ export default {
     SettingsIcon,
     CalendarIcon,
     UpToDate,
+  },
+  data() {
+    return {
+      iDb,
+    }
   },
   async fetch() {
     await this.$store.dispatch('user/fetchNotifications')
