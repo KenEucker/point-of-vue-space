@@ -385,8 +385,7 @@
         </nuxt-link>
       </div>
       <div class="not-affiliated-notice">
-        NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH
-        MOJANG.
+        {{ iDb.notAfiliated }}
       </div>
     </footer>
   </div>
