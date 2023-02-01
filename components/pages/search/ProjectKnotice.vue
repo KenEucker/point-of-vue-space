@@ -48,7 +48,7 @@
 </template>
 <script>
 export default {
-  name: 'ModrinthNotice',
+  name: 'ProjectKnotice',
   props: {
     projectType: {
       type: String,

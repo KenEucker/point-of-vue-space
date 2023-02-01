@@ -3,7 +3,7 @@
     <h1>Content Rules</h1>
 
     <p>
-      In order to facilitate Modrinth's
+      In order to facilitate {{ iDb.orgName }}'s
       <nuxt-link to="/legal/terms">Terms and Conditions</nuxt-link>, all Content
       must obey the following Rules. For more information on what exactly
       Content is, please refer to the Content section of the Terms.
@@ -22,7 +22,7 @@
       If you find any violations of these Rules on our website, it is your
       responsibility to report it. You may use the Report button on any project,
       version, or user page, or you may email us at
-      <a href="mailto:support@modrinth.com">support@modrinth.com</a>.
+      <a :href="`mailto:${iDb.supportMailto}`"> {{ iDb.supportMailto }} </a>.
     </p>
 
     <h2 id="malicious-content">1. Malicious Content</h2>
@@ -53,7 +53,7 @@
       Content must not make or share intentionally wrong or misleading claims.
       This includes but is not limited to claims regarding the Content itself,
       claims regarding other Content, and claims not relating to Content on
-      Modrinth.
+      {{ iDb.orgName }}.
     </p>
 
     <h3 id="general-expectations">2.1. General expectations</h3>
@@ -119,7 +119,7 @@
     <p>
       You must own or have the necessary licenses, rights, consents, and
       permissions to store, share, or distribute the Content that is uploaded
-      under your Modrinth account.
+      under your {{ iDb.orgName }} account.
     </p>
 
     <p>
@@ -128,7 +128,7 @@
       licensing or other rights. This restriction does not apply to content
       within modpacks or to so called "forks" - that is, modified copies of a
       project which have diverged substantially enough from the original
-      project, at the discretion of Modrinth's moderators.
+      project, at the discretion of {{ iDb.orgName }}'s moderators.
     </p>
 
     <p>
@@ -143,8 +143,8 @@
     <h2 id="prohibited-content">5. Prohibited Content</h2>
 
     <p>
-      Content on Modrinth is meant to be appropriate for audiences 13 years of
-      age and above.
+      Content on {{ iDb.orgName }} is meant to be appropriate for audiences 13
+      years of age and above.
     </p>
 
     <p>This means that the following Content is not allowed:</p>
@@ -161,16 +161,20 @@
 </template>
 
 <script>
+import iDb from '~/iDb/pages/legal'
+
 export default {
   auth: false,
+  data() {
+    return { iDb }
+  },
   head: {
-    title: 'Rules - Modrinth',
+    title: 'Rules - ' + iDb.appName,
     meta: [
       {
         hid: 'description',
         name: 'description',
-        content:
-          'The Content Rules of Modrinth, an open source modding platform focused on Minecraft.',
+        content: `The Content Rules of ${iDb.appName}, an open source ${iDb.orgMission}.`,
       },
       {
         hid: 'apple-mobile-web-app-title',
@@ -185,7 +189,7 @@ export default {
       {
         hid: 'og:url',
         name: 'og:url',
-        content: `https://modrinth.com/legal/rules`,
+        content: iDb.head.meta['og:url'].content,
       },
     ],
   },

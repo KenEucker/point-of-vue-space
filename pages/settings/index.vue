@@ -122,10 +122,10 @@
         <label for="external-links-new-tab">
           <span class="label__title">Open external links in new tab</span>
           <span class="label__description">
-            Make links which go outside of Modrinth open in a new tab. No matter
-            this setting, links on the same domain and in Markdown descriptions
-            will open in the same tab, and links on ads and edit pages will open
-            in a new tab.
+            Make links which go outside of {{ iDb.appName }} open in a new tab.
+            No matter this setting, links on the same domain and in Markdown
+            descriptions will open in the same tab, and links on ads and edit
+            pages will open in a new tab.
           </span>
         </label>
         <input
@@ -143,6 +143,8 @@
 <script>
 import Multiselect from 'vue-multiselect'
 
+import iDb from '~/iDb/pages/settings'
+
 export default {
   components: {
     Multiselect,
@@ -150,6 +152,8 @@ export default {
   auth: false,
   data() {
     return {
+      iDb,
+
       searchLayout: false,
       projectLayout: false,
       modpacksAlphaNotice: true,
@@ -175,7 +179,7 @@ export default {
     this.searchDisplayMode = this.$store.state.cosmetics.searchDisplayMode
   },
   head: {
-    title: 'Display settings - Modrinth',
+    title: 'Display settings - ' + iDb.appName,
   },
   computed: {
     listTypes() {

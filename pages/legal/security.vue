@@ -3,8 +3,8 @@
     <h1>Security Notice</h1>
 
     <p>
-      This is the security notice for all Modrinth repositories. The notice
-      explains how vulnerabilities should be reported.
+      This is the security notice for all {{ iDb.orgName }} repositories. The
+      notice explains how vulnerabilities should be reported.
     </p>
     <h2>Reporting a Vulnerability</h2>
     <p>
@@ -13,7 +13,8 @@
       <strong>Do not open a GitHub issue for a found vulnerability</strong>.
     </p>
     <p>
-      Send details to <a href="mailto:jai@modrinth.com">jai@modrinth.com</a>
+      Send details to
+      <a :href="`mailto:${iDb.jaiMailto}`">{{ iDb.jaiMailto }}</a>
       including:
     </p>
     <ul>
@@ -59,16 +60,20 @@
 </template>
 
 <script>
+import iDb from '~/iDb/pages/legal'
+
 export default {
   auth: false,
+  data() {
+    return { iDb }
+  },
   head: {
-    title: 'Security Notice - Modrinth',
+    title: 'Security Notice - ' + iDb.appName,
     meta: [
       {
         hid: 'description',
         name: 'description',
-        content:
-          'The Security Notice of Modrinth, an open source modding platform focused on Minecraft.',
+        content: `The Security Notice of ${iDb.orgName}, an open source ${iDb.orgMission}.`,
       },
       {
         hid: 'apple-mobile-web-app-title',
@@ -83,7 +88,7 @@ export default {
       {
         hid: 'og:url',
         name: 'og:url',
-        content: `https://modrinth.com/legal/security`,
+        content: iDb.head.meta['og:url'].content,
       },
     ],
   },

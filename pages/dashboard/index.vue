@@ -88,6 +88,7 @@
 
 <script>
 import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg?inline'
+import iDb from '~/iDb/pages/dashboard'
 
 export default {
   components: { ChevronRightIcon },
@@ -115,7 +116,7 @@ export default {
   },
   fetch() {},
   head: {
-    title: 'Creator dashboard - Modrinth',
+    title: 'Creator dashboard - ' + iDb.appName,
   },
   computed: {
     downloadsProjectCount() {

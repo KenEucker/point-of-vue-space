@@ -6,7 +6,7 @@
 
     <!-- User roles -->
     <template v-else-if="type === 'admin'">
-      <ModrinthIcon /> Modrinth Team
+      <LogoIcon /> {{ iDb.badge.logoText }}
     </template>
     <template v-else-if="type === 'moderator'">
       <ModeratorIcon /> Moderator
@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import ModrinthIcon from '~/assets/images/logo.svg?inline'
+import LogoIcon from '~/assets/images/logo.svg?inline'
 import ModeratorIcon from '~/assets/images/sidebar/admin.svg?inline'
 import CreatorIcon from '~/assets/images/utils/box.svg?inline'
 import ListIcon from '~/assets/images/utils/list.svg?inline'
@@ -55,10 +55,12 @@ import CheckIcon from '~/assets/images/utils/check.svg?inline'
 import LockIcon from '~/assets/images/utils/lock.svg?inline'
 import CalendarIcon from '~/assets/images/utils/calendar.svg?inline'
 
+import iDb from '~/iDb/components/ui'
+
 export default {
   name: 'Badge',
   components: {
-    ModrinthIcon,
+    LogoIcon,
     ListIcon,
     DraftIcon,
     EyeOffIcon,
@@ -80,6 +82,11 @@ export default {
       type: String,
       default: '',
     },
+  },
+  data() {
+    return {
+      iDb,
+    }
   },
 }
 </script>

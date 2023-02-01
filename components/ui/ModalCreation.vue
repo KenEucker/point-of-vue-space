@@ -34,9 +34,8 @@
       </label>
       <div class="text-input-wrapper">
         <div class="text-input-wrapper__before">
-          https://modrinth.com/{{
-            getProjectType() ? getProjectType().id : '???'
-          }}/
+          {{ iDb.modal.projectBaseUrl }}
+          {{ getProjectType() ? getProjectType().id : '???' }}/
         </div>
         <input
           id="slug"
@@ -81,6 +80,8 @@ import CheckIcon from '~/assets/images/utils/right-arrow.svg?inline'
 import Modal from '~/components/ui/Modal'
 import Chips from '~/components/ui/Chips'
 
+import iDb from '~/iDb/components/ui'
+
 export default {
   name: 'ModalCreation',
   components: {
@@ -101,6 +102,8 @@ export default {
   },
   data() {
     return {
+      iDb,
+
       projectType: this.$tag.projectTypes[0].display,
       name: '',
       slug: '',

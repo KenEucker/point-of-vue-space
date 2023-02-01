@@ -125,7 +125,7 @@ export default {
     await this.$store.dispatch('user/fetchNotifications')
   },
   head: {
-    title: 'Notifications - Modrinth',
+    title: 'Notifications - ' + iDb.appName,
   },
   computed: {
     notificationTypes() {

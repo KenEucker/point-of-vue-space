@@ -7,6 +7,9 @@ const notifications = require('./notifications')
 
 module.exports = {
   dashboard,
+  analytics: {
+    appName: 'Modrinth',
+  },
   index: {
     mainHeader: 'The place for Minecraft',
     mainHeaderMod: 'mods',
@@ -30,4 +33,8 @@ module.exports = {
   notifications,
   search,
   settings,
+  user: {
+    appName: 'Modrinth',
+    avatarPlaceholderImage: 'https://cdn.modrinth.com/placeholder.png',
+  },
 }

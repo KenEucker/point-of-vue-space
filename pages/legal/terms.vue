@@ -5,7 +5,7 @@
     <h2>1. Terms</h2>
 
     <p>
-      By accessing this Website, accessible from https://modrinth.com, you are
+      By accessing this Website, accessible from {{ iDb.appUrl }}, you are
       agreeing to be bound by these Website Terms and Conditions of Use and
       agree that you are responsible for the agreement with any applicable local
       laws. If you disagree with any of these terms, you are prohibited from
@@ -118,46 +118,47 @@
     <p>
       When you upload text, software, mods, scripts, graphics, photos, audio,
       videos, links, interactive features and other materials that may be viewed
-      on or accessed through Modrinth, we refer to it as "Content".
+      on or accessed through {{ iDb.orgName }}, we refer to it as "Content".
     </p>
 
     <ul>
       <li>
         You are responsible for all activity and Content that is uploaded under
-        your Modrinth account.
+        your {{ iDb.orgName }} account.
       </li>
       <li>
         You retain all of your ownership rights to your Content. We do not claim
         any ownership in or to any of your Content.
       </li>
       <li>
-        To enable us to provide the services of Modrinth, you hereby grant us a
-        worldwide, non-exclusive, royalty-free, and unrestricted license to use,
-        reproduce, distribute copies, prepare derivative works of, or display
-        Content in connection with Modrinth in any medium and for any purpose
-        (including commercial purposes).
+        To enable us to provide the services of {{ iDb.orgName }}, you hereby
+        grant us a worldwide, non-exclusive, royalty-free, and unrestricted
+        license to use, reproduce, distribute copies, prepare derivative works
+        of, or display Content in connection with {{ iDb.orgName }} in any
+        medium and for any purpose (including commercial purposes).
       </li>
     </ul>
 
     <p>
-      All Content on Modrinth must obey the
+      All Content on {{ iDb.orgName }} must obey the
       <nuxt-link to="/legal/rules">Content Rules</nuxt-link>. Please be aware of
-      these Rules before uploading any Content to Modrinth.
+      these Rules before uploading any Content to {{ iDb.orgName }}.
     </p>
   </div>
 </template>
 
 <script>
+import iDb from '~/iDb/pages/legal'
+
 export default {
   auth: false,
   head: {
-    title: 'Terms - Modrinth',
+    title: 'Terms - ' + iDb.appName,
     meta: [
       {
         hid: 'description',
         name: 'description',
-        content:
-          'The Terms and Conditions of Modrinth, an open source modding platform focused on Minecraft.',
+        content: `The Terms and Conditions of ${iDb.orgName}, an open source ${iDb.orgMission}`,
       },
       {
         hid: 'apple-mobile-web-app-title',
@@ -172,7 +173,7 @@ export default {
       {
         hid: 'og:url',
         name: 'og:url',
-        content: `https://modrinth.com/legal/terms`,
+        content: iDb.head.meta['og:url'].content,
       },
     ],
   },

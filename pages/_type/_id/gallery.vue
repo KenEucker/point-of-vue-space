@@ -143,7 +143,7 @@
           :src="
             expandedGalleryItem.url
               ? expandedGalleryItem.url
-              : 'https://cdn.modrinth.com/placeholder-banner.svg'
+              : iDb.galleryImagePlaceholder
           "
           :alt="
             expandedGalleryItem.title
@@ -176,7 +176,7 @@
                 :href="
                   expandedGalleryItem.url
                     ? expandedGalleryItem.url
-                    : 'https://cdn.modrinth.com/placeholder-banner.svg'
+                    : iDb.galleryImagePlaceholder
                 "
               >
                 <ExternalIcon aria-hidden="true" />
@@ -227,11 +227,7 @@
       >
         <a class="gallery-thumbnail" @click="expandImage(item, index)">
           <img
-            :src="
-              item.url
-                ? item.url
-                : 'https://cdn.modrinth.com/placeholder-banner.svg'
-            "
+            :src="item.url ? item.url : iDb.galleryImagePlaceholder"
             :alt="item.title ? item.title : 'gallery-image'"
           />
         </a>
@@ -302,6 +298,8 @@ import DropArea from '~/components/ui/DropArea'
 import ModalConfirm from '~/components/ui/ModalConfirm'
 import Modal from '~/components/ui/Modal'
 
+import iDb from '~/iDb/type/id'
+
 export default {
   components: {
     CalendarIcon,
@@ -342,6 +340,8 @@ export default {
   },
   data() {
     return {
+      iDb,
+
       expandedGalleryItem: null,
       expandedGalleryIndex: 0,
       zoomedIn: false,
@@ -360,7 +360,7 @@ export default {
   },
   head() {
     const title = `${this.project.title} - Gallery`
-    const description = `View ${this.project.gallery.length} images of ${this.project.title} on Modrinth.`
+    const description = `View ${this.project.gallery.length} images of ${this.project.title} on ${iDb.appName}.`
 
     return {
       title,

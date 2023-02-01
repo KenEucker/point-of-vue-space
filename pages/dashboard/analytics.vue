@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import iDb from '~/iDb/pages'
+
 export default {
   components: {},
   data() {
@@ -18,7 +20,7 @@ export default {
   },
   fetch() {},
   head: {
-    title: 'Analytics - Modrinth',
+    title: 'Analytics - ' + iDb.analytics.appName,
   },
   methods: {},
 }

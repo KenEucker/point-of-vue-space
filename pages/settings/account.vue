@@ -3,18 +3,21 @@
     <ModalConfirm
       ref="modal_confirm"
       title="Are you sure you want to delete your account?"
-      description="This will **immediately delete all of your user data and follows**. This will not delete your projects. Deleting your account cannot be reversed.<br><br>If you need help with your account, get support on the [Modrinth Discord](https://discord.gg/EUHuJHt)."
+      :description="`This will **immediately delete all of your user data and follows**. This will not delete your projects. Deleting your account cannot be reversed.<br><br>If you need help with your account, get support on the [${iDb.appName} Discord](${iDb.discordLink}).`"
       proceed-label="Delete this account"
       :confirmation-text="$auth.user.username"
       :has-to-type="true"
       @proceed="deleteAccount"
     />
 
-    <Modal ref="modal_revoke_token" header="Revoke your Modrinth token">
+    <Modal
+      ref="modal_revoke_token"
+      :header="`Revoke your ${iDb.appName} token`"
+    >
       <div class="modal-revoke-token markdown-body">
         <p>
-          Revoking your Modrinth token can have unintended consequences. Please
-          be aware that the following could break:
+          Revoking your {{ iDb.appName }} token can have unintended
+          consequences. Please be aware that the following could break:
         </p>
         <ul>
           <li>Any application that uses your token to access the API.</li>
@@ -23,8 +26,8 @@
             could fail.
           </li>
           <li>
-            GitHub - if you use a GitHub action that uses the Modrinth API, it
-            will cause errors.
+            GitHub - if you use a GitHub action that uses the
+            {{ iDb.appName }} API, it will cause errors.
           </li>
         </ul>
         <p>If you are willing to continue, complete the following steps:</p>
@@ -35,10 +38,10 @@
               target="_blank"
               rel="noopener noreferrer nofollow"
             >
-              Head to the Modrinth Application page on GitHub.
+              Head to the {{ iDb.appName }} Application page on GitHub.
             </a>
             Make sure to be logged into the GitHub account you used for
-            Modrinth!
+            {{ iDb.appName }}!
           </li>
           <li>
             Press the big red "Revoke Access" button next to the "Permissions"
@@ -50,8 +53,8 @@
         </p>
         <p>
           <strong>
-            This will log you out of Modrinth, however, when you log back in,
-            your token will be regenerated.
+            This will log you out of {{ iDb.appName }}, however, when you log
+            back in, your token will be regenerated.
           </strong>
         </p>
         <div class="button-group">
@@ -113,9 +116,9 @@
     <section class="universal-card">
       <h2>Authorization token</h2>
       <p>
-        Your authorization token can be used with the Modrinth API, the Minotaur
-        Gradle plugin, and other applications that interact with Modrinth's API.
-        Be sure to keep this secret!
+        Your authorization token can be used with the {{ iDb.appName }} API, the
+        Minotaur Gradle plugin, and other applications that interact with
+        {{ iDb.appName }}'s API. Be sure to keep this secret!
       </p>
       <div class="input-group">
         <button
@@ -173,6 +176,8 @@ import CopyIcon from '~/assets/images/utils/clipboard-copy.svg?inline'
 import TrashIcon from '~/assets/images/utils/trash.svg?inline'
 import SlashIcon from '~/assets/images/utils/slash.svg?inline'
 
+import iDb from '~/iDb/pages/settings'
+
 export default {
   components: {
     Modal,
@@ -194,7 +199,7 @@ export default {
     }
   },
   head: {
-    title: 'Account settings - Modrinth',
+    title: 'Account settings - ' + iDb.appName,
   },
   methods: {
     async copyToken() {

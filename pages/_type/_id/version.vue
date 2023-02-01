@@ -942,7 +942,7 @@ export default {
     } - ${this.project.title}`
     const description = `Download ${this.project.title} ${
       this.version.version_number
-    } on Modrinth. Supports ${this.$formatVersion(
+    } on ${iDb.appName}. Supports ${this.$formatVersion(
       this.version.game_versions
     )} ${this.version.loaders
       .map((x) => x.charAt(0).toUpperCase() + x.slice(1))

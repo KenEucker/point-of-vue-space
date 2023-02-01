@@ -994,20 +994,20 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content: `${
-            this.project.description
-          } - Download the Minecraft ${this.$formatProjectType(
-            this.projectTypeDisplay
-          )} ${this.project.title} by ${
-            this.members.find((x) => x.role === 'Owner').user.username
-          } on Modrinth`,
+          content: `${this.project.description} ${
+            iDb.head.meta.description.content1
+          } ${this.$formatProjectType(this.projectTypeDisplay)} ${
+            this.project.title
+          } by ${this.members.find((x) => x.role === 'Owner').user.username} ${
+            iDb.head.meta.description.content2
+          }`,
         },
         {
           hid: 'og:image',
           name: 'og:image',
           content: this.project.icon_url
             ? this.project.icon_url
-            : 'https://cdn.modrinth.com/placeholder.png',
+            : iDb.head['og:image'].content,
         },
         {
           hid: 'robots',
