@@ -32,34 +32,13 @@
             <ClearIcon aria-hidden="true" />
             Clear filters
           </button>
-          <section aria-label="Category filters">
-            <div v-for="(categories, header) in categoriesMap" :key="header">
-              <h3
-                v-if="
-                  categories.filter(
-                    (x) => x.project_type === projectType.actual
-                  ).length > 0
-                "
-                class="sidebar-menu-heading"
-              >
-                {{ $formatCategoryHeader(header) }}
-              </h3>
 
-              <SearchFilter
-                v-for="category in categories.filter(
-                  (x) => x.project_type === projectType.actual
-                )"
-                :key="category.name"
-                :active-filters="facets"
-                :display-name="$formatCategory(category.name)"
-                :facet-name="`categories:'${encodeURIComponent(
-                  category.name
-                )}'`"
-                :icon="header === 'resolutions' ? null : category.icon"
-                @toggle="toggleFacet"
-              />
-            </div>
-          </section>
+          <CategoriesFilter
+            :facets="facets"
+            :project-type="projectType.actual"
+            @toggleFacet="toggleFacet"
+          />
+
           <section
             v-if="
               projectType.id !== 'resourcepack' && projectType.id !== 'datapack'
@@ -410,6 +389,7 @@
 
 <script>
 import Multiselect from 'vue-multiselect'
+import CategoriesFilter from './search/CategoriesFilter'
 import ProjectCard from '~/components/ui/ProjectCard'
 import Pagination from '~/components/ui/Pagination'
 import SearchFilter from '~/components/ui/search/SearchFilter'
@@ -431,6 +411,7 @@ export default {
   auth: false,
   components: {
     Advertisement,
+    CategoriesFilter,
     ProjectCard,
     Pagination,
     Multiselect,
@@ -569,26 +550,6 @@ export default {
         },
       ],
     }
-  },
-  computed: {
-    categoriesMap() {
-      const categories = {}
-
-      for (const category of this.$sortedCategories) {
-        if (categories[category.header]) {
-          categories[category.header].push(category)
-        } else {
-          categories[category.header] = [category]
-        }
-      }
-
-      const newVals = Object.keys(categories).reduce((obj, key) => {
-        obj[key] = categories[key]
-        return obj
-      }, {})
-
-      return newVals
-    },
   },
   watch: {
     '$route.path': {
