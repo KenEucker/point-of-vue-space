@@ -72,141 +72,30 @@
       </section>
     </aside>
     <section class="normal-page__content">
-      <div
-        v-if="
-          projectType.id === 'modpack' &&
-          $orElse($cosmetics.modpacksAlphaNotice, true)
-        "
-        class="card warning"
-        aria-label="Warning"
-      >
-        Modpack support is currently in alpha, and modpacks can only be created
-        and installed through third party tools. Our documentation includes
-        instructions on
-        <a
-          href="https://docs.modrinth.com/docs/modpacks/playing_modpacks/"
-          :target="$external()"
-          >playing modpacks</a
-        >
-        with
-        <a
-          rel="noopener noreferrer nofollow"
-          href="https://atlauncher.com/about"
-          :target="$external()"
-          >ATLauncher</a
-        >,
-        <a
-          rel="noopener noreferrer nofollow"
-          href="https://multimc.org/"
-          :target="$external()"
-          >MultiMC</a
-        >, and
-        <a
-          rel="noopener noreferrer nofollow"
-          href="https://prismlauncher.org"
-          :target="$external()"
-        >
-          Prism Launcher</a
-        >. Pack creators can reference our documentation on
-        <a
-          href="https://docs.modrinth.com/docs/modpacks/creating_modpacks/"
-          :target="$external()"
-          >creating modpacks</a
-        >. Join us on
-        <a
-          rel="noopener noreferrer nofollow"
-          href="https://discord.gg/EUHuJHt"
-          :target="$external()"
-          >Discord</a
-        >
-        for support.
-      </div>
-      <Advertisement type="banner" small-screen="square" />
-      <div class="card search-controls">
-        <div class="search-filter-container">
-          <button
-            class="iconified-button sidebar-menu-close-button"
-            :class="{ open: sidebarMenuOpen }"
-            @click="sidebarMenuOpen = !sidebarMenuOpen"
-          >
-            <FilterIcon aria-hidden="true" />
-            Filters...
-          </button>
-          <div class="iconified-input">
-            <label class="hidden" for="search">Search</label>
-            <SearchIcon aria-hidden="true" />
-            <input
-              id="search"
-              v-model="query"
-              type="search"
-              name="search"
-              :placeholder="`Search ${projectType.display}s...`"
-              autocomplete="off"
-              @input="onSearchChange(1)"
-            />
-          </div>
-        </div>
-        <div class="sort-controls">
-          <div class="labeled-control">
-            <span class="labeled-control__label">Sort by</span>
-            <Multiselect
-              v-model="sortType"
-              placeholder="Select one"
-              class="search-controls__sorting labeled-control__control"
-              track-by="display"
-              label="display"
-              :options="sortTypes"
-              :searchable="false"
-              :close-on-select="true"
-              :show-labels="false"
-              :allow-empty="false"
-              @input="onSearchChange(1)"
-            >
-              <template slot="singleLabel" slot-scope="{ option }">{{
-                option.display
-              }}</template>
-            </Multiselect>
-          </div>
-          <div class="labeled-control">
-            <span class="labeled-control__label">Show per page</span>
-            <Multiselect
-              v-model="maxResults"
-              placeholder="Select one"
-              class="labeled-control__control"
-              :options="
-                maxResultsForView[$cosmetics.searchDisplayMode[projectType.id]]
-              "
-              :searchable="false"
-              :close-on-select="true"
-              :show-labels="false"
-              :allow-empty="false"
-              @input="onMaxResultsChange(currentPage)"
-            />
-          </div>
-          <button
-            v-tooltip="
-              $capitalizeString($cosmetics.searchDisplayMode[projectType.id]) +
-              ' view'
-            "
-            :aria-label="
-              $capitalizeString($cosmetics.searchDisplayMode[projectType.id]) +
-              ' view'
-            "
-            class="square-button"
-            @click="cycleSearchDisplayMode()"
-          >
-            <GridIcon
-              v-if="$cosmetics.searchDisplayMode[projectType.id] === 'grid'"
-            />
-            <ImageIcon
-              v-else-if="
-                $cosmetics.searchDisplayMode[projectType.id] === 'gallery'
-              "
-            />
-            <ListIcon v-else />
-          </button>
-        </div>
-      </div>
+      <ModrinthNotice
+        :notice="iDb.modpacksAlphaNotice"
+        :project-type="projectType.id"
+      />
+      <Advertisement
+        v-if="iDb.showAdvertisement"
+        type="banner"
+        small-screen="square"
+      />
+      <SearchControls
+        :project-type-id="projectType.id"
+        :project-type-display="projectType.display"
+        :max-results="maxResults"
+        :max-results-for-view="maxResultsForView"
+        :sort-types="sortTypes"
+        :sort-type="sortType"
+        :query-string="query"
+        @setQuery="setQuery"
+        @setSortType="setSortType"
+        @onSearchChange="onSearchChange"
+        @onMaxResultsChange="onMaxResultsChange"
+        @sidebarMenuOpen="setSidebarMenuOpen"
+        @cycleSearchDisplayMode="cycleSearchDisplayMode"
+      />
       <pagination
         :page="currentPage"
         :count="pageCount"
@@ -275,21 +164,18 @@
 </template>
 
 <script>
-import Multiselect from 'vue-multiselect'
 import CategoriesFilter from './search/CategoriesFilter'
 import LoadersFilter from './search/LoadersFilter'
 import ProxiesFilter from './search/ProxiesFilter'
 import EnvironmentsFilter from './search/EnvironmentsFilter'
 import VersionsFilter from './search/VersionsFilter'
+import ModrinthNotice from './search/ModrinthNotice'
+import SearchControls from './search/SearchControls'
 import ProjectCard from '~/components/ui/ProjectCard'
 import Pagination from '~/components/ui/Pagination'
-
-import SearchIcon from '~/assets/images/utils/search.svg?inline'
 import ClearIcon from '~/assets/images/utils/clear.svg?inline'
-import FilterIcon from '~/assets/images/utils/filter.svg?inline'
-import GridIcon from '~/assets/images/utils/grid.svg?inline'
-import ListIcon from '~/assets/images/utils/list.svg?inline'
-import ImageIcon from '~/assets/images/utils/image.svg?inline'
+
+import iDb from '~/iDb/pages/search'
 
 import Advertisement from '~/components/ads/Advertisement'
 
@@ -302,18 +188,16 @@ export default {
     ProxiesFilter,
     EnvironmentsFilter,
     VersionsFilter,
+    SearchControls,
+    ModrinthNotice,
     ProjectCard,
     Pagination,
-    Multiselect,
-    SearchIcon,
     ClearIcon,
-    FilterIcon,
-    GridIcon,
-    ListIcon,
-    ImageIcon,
   },
   data() {
     return {
+      iDb,
+
       query: '',
 
       onlyOpenSource: false,
@@ -474,6 +358,15 @@ export default {
     this.$nuxt.$emit('registerSkipLink')
   },
   methods: {
+    setQuery(v) {
+      this.query = v
+    },
+    setSortType(v) {
+      this.sortType = v
+    },
+    setSidebarMenuOpen(v) {
+      this.sidebarMenuOpen = v
+    },
     setShowSnapshots(v) {
       this.showSnapshots = v
     },
@@ -740,7 +633,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .normal-page__content {
   // Passthrough children as grid items on mobile
   display: contents;
@@ -784,85 +677,6 @@ export default {
   margin: 1.5rem 0 0.5rem 0;
 }
 
-// EthicalAds
-.content-wrapper {
-  grid-row: 1;
-}
-
-.search-controls {
-  display: flex;
-  flex-direction: row;
-  gap: var(--spacing-card-md);
-  flex-wrap: wrap;
-  padding: var(--spacing-card-md);
-  grid-row: 2;
-
-  .search-filter-container {
-    display: flex;
-    width: 100%;
-    align-items: center;
-
-    .sidebar-menu-close-button {
-      max-height: none;
-      // match height of the search field
-      height: 40px;
-      transition: box-shadow 0.1s ease-in-out;
-      margin-right: var(--spacing-card-md);
-
-      &.open {
-        color: var(--color-button-text-active);
-        background-color: var(--color-brand-highlight);
-        box-shadow: inset 0 0 0 transparent, 0 0 0 2px var(--color-brand);
-      }
-    }
-
-    .iconified-input {
-      flex: 1;
-
-      input {
-        width: 100%;
-        margin: 0;
-      }
-    }
-  }
-
-  .sort-controls {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    gap: var(--spacing-card-md);
-    flex-wrap: wrap;
-    align-items: center;
-
-    .labeled-control {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-
-      .labeled-control__label {
-        white-space: nowrap;
-      }
-    }
-
-    .square-button {
-      margin-top: auto;
-      margin-bottom: 0.25rem;
-    }
-  }
-}
-
-.search-controls__sorting {
-  min-width: 14rem;
-}
-
-.labeled-control__label,
-.labeled-control__control {
-  display: block;
-}
-
 .pagination-before {
   grid-row: 4;
 }
@@ -879,60 +693,10 @@ export default {
   text-align: center;
 }
 
-@media screen and (min-width: 750px) {
-  .search-controls {
-    flex-wrap: nowrap;
-    flex-direction: row;
-  }
-
-  .sort-controls {
-    min-width: fit-content;
-    max-width: fit-content;
-    flex-wrap: nowrap;
-  }
-
-  .labeled-control {
-    align-items: center;
-    display: flex;
-    flex-direction: column !important;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    max-width: fit-content;
-  }
-
-  .labeled-control__label {
-    flex-shrink: 0;
-    margin-bottom: 0 !important;
-  }
-}
-
-@media screen and (min-width: 860px) {
-  .labeled-control {
-    flex-wrap: nowrap !important;
-    flex-direction: row !important;
-  }
-}
-
 @media screen and (min-width: 1024px) {
   .sidebar-menu {
     display: block;
     margin-top: 0;
-  }
-
-  .sidebar-menu-close-button {
-    display: none;
-  }
-
-  .labeled-control {
-    flex-wrap: wrap !important;
-    flex-direction: column !important;
-  }
-}
-
-@media screen and (min-width: 1100px) {
-  .labeled-control {
-    flex-wrap: nowrap !important;
-    flex-direction: row !important;
   }
 }
 </style>
