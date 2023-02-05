@@ -231,7 +231,8 @@ export default {
               {
                 url: getDomain() + url,
                 ip:
-                  context.req.headers['CF-Connecting-IP'] ??
+                  context.req.headers['cf-connecting-ip'] ??
+                  context.req.headers['x-real-ip'] ??
                   context.req.connection.remoteAddress,
                 headers: context.req.headers,
               },
